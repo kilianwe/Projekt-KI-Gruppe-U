@@ -6,12 +6,12 @@ public class Piece {
 
     private final Type type;
     private int height; // Only relevant for towers
-    private final boolean isWhite;
+    private final boolean isRed;
 
-    public Piece(Type type, int height, boolean isWhite) {
+    public Piece(Type type, int height, boolean isRed) {
         this.type = type;
         this.height = (type == Type.GUARD) ? 1 : height;
-        this.isWhite = isWhite;
+        this.isRed = isRed;
     }
 
     public Type getType() {
@@ -22,8 +22,8 @@ public class Piece {
         return height;
     }
 
-    public boolean isWhite() {
-        return isWhite;
+    public boolean isRed() {
+        return isRed;
     }
 
     public void increaseHeight(int by) {
@@ -33,11 +33,12 @@ public class Piece {
     }
 
     public Piece copy() {
-        return new Piece(this.type, this.height, this.isWhite);
+        return new Piece(this.type, this.height, this.isRed);
     }
 
     @Override
     public String toString() {
-        return (isWhite ? "W" : "B") + (type == Type.GUARD ? "G" : "T" + height);
+        return (isRed ? "R" : "B") + (type == Type.GUARD ? "G" : "T" + height);
     }
 }
+

@@ -10,7 +10,7 @@ public class GuardTowersMoveGenerator {
         for (int r = 0; r < BOARD_SIZE; r++) {
             for (int c = 0; c < BOARD_SIZE; c++) {
                 Piece piece = board[r][c];
-                if (piece == null || piece.isWhite() != forWhite) continue;
+                if (piece == null || piece.isRed() != forWhite) continue;
 
                 int maxStep = (piece.getType() == Piece.Type.GUARD) ? 1 : piece.getHeight();
 
@@ -39,7 +39,7 @@ public class GuardTowersMoveGenerator {
 
                         if (destination == null) {
                             valid = true; // move to empty
-                        } else if (destination.isWhite() == forWhite) {
+                        } else if (destination.isRed() == forWhite) {
                             if (piece.getType() == Piece.Type.TOWER && destination.getType() == Piece.Type.TOWER) {
                                 valid = true; // stacking
                             }
