@@ -11,5 +11,9 @@ public class Main {
             System.out.println(move + " -> " + move.toAlgebraic());
         }
         System.out.println(whiteMoves.size() + " moves generated.");
+
+        Board bitboard = new Board();
     }
+
+
 }
