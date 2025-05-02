@@ -298,7 +298,4 @@ public class  BitBoardUtils {
             return new Move(fromRow, fromCol, toRow, toCol, moveHeight);
         }
     }
-
-
-
 }

@@ -41,4 +41,3 @@ public class Piece {
         return (isRed ? "R" : "B") + (type == Type.GUARD ? "G" : "T" + height);
     }
 }
-
