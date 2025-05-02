@@ -36,19 +36,21 @@ public class  BitBoardUtils {
 
 
     public Board makeMove(MovePair move, Board board){
-        long to = (1L << move.getFrom());
+        long to = (1L << move.getTo());
         System.out.println("To");
         BitBoardUtils.printBitboard(to);
 
-        long from = (1L << move.getTo());
+        long from = (1L << move.getFrom());
         System.out.println("From");
         BitBoardUtils.printBitboard(from);
 
         Board returnBoard = board;
+        System.out.println("Stack1");
+        BitBoardUtils.printBitboard(returnBoard.getStack(0));
 
         //Delete "From" Position
+        int n = move.getHeight();
         for (int i = 6; i >= 0; i--){
-            int n = move.getHeight();
             //If there is a bit present at the "from" position the ^= operation will lead to that bit being deleted which means the height of the Stack at that position will be decreased by 1
             if((returnBoard.getStack(i) | from) == returnBoard.getStack(i)) {
                 returnBoard.setStack(i, returnBoard.getStack(i)^ from);
@@ -61,23 +63,32 @@ public class  BitBoardUtils {
         //update blue to include the removal of the "from" position
         returnBoard.setBlue(returnBoard.getBlue() & returnBoard.getStack(0));
 
+        System.out.println("Blue");
+        BitBoardUtils.printBitboard(returnBoard.getBlue());
+
+
         //delete beaten enemy Stack
         for (int i = 0; i < 7; i++){
-            returnBoard.setStack(i, (returnBoard.getStack(i) & returnBoard.getRed() ^ to) | returnBoard.getBlue() & returnBoard.getStack(i));
+            returnBoard.setStack(i, (returnBoard.getStack(i) & returnBoard.getRed() ^ to & returnBoard.getStack(i)) | (returnBoard.getBlue()& returnBoard.getStack(i)) );
         }
         //update red to include the removal of beaten stack
         returnBoard.setRed(returnBoard.getRed() & returnBoard.getStack(0));
 
+        System.out.println("Red");
+        BitBoardUtils.printBitboard(returnBoard.getRed());
+
         //increase Stacks which player who moved owns
+        n = move.getHeight();
         for (int i = 0; i < 7; i++){
-            int n = move.getHeight();
             //If there is no bit present at the "to" position the | operation will lead to that bit being added which means the height of the Stack at that position will be increased by 1
-            if((returnBoard.getStack(i) | from) != returnBoard.getStack(i)) {
-                returnBoard.setStack(i, returnBoard.getStack(i) | from);;
+            if((returnBoard.getStack(i) | to) != returnBoard.getStack(i)) {
+                returnBoard.setStack(i, returnBoard.getStack(i) | to);
                 n--;
             }
             if(n == 0){break;}
         }
+        System.out.println("Stack 1");
+        BitBoardUtils.printBitboard(returnBoard.getStack(0));
 
         //update blue to include the increased Stack
         returnBoard.setBlue(returnBoard.getStack(0) ^ returnBoard.getRed());
