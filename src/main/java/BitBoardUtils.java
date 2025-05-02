@@ -28,6 +28,11 @@ public class  BitBoardUtils {
         }
     }
 
+    public MovePair pickMove(List<MovePair> moves, Board board){
+        int randomNum = (int)(Math.random() * moves.size());
+        return moves.get(randomNum);
+    }
+
     /**
      * Method to check if the Player who has just made a move has won the game.
      * @param player
@@ -113,7 +118,7 @@ public class  BitBoardUtils {
         returnBoard.setBlue(returnBoard.getStack(0) ^ returnBoard.getRed());
 
         // update guard mask
-        if((returnBoard.getGuards() | to) == returnBoard.getGuards()){
+        if((returnBoard.getGuards() | to) == returnBoard.getGuards() || (returnBoard.getGuards() | from) == returnBoard.getGuards()){
             returnBoard.setGuards(returnBoard.getGuards()^from^to);
         }
         return returnBoard;
