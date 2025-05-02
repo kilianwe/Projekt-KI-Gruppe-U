@@ -11,9 +11,19 @@ public class  BitBoardUtils {
 
     public BitBoardUtils(){
         precomputePathMasks();
+        long leftMask1 = 1L<<6;
+        long rightMask1 = 1L;
+        for(int i = 0; i < 6; i++){
+            leftMask1 = leftMask1 << 7 | leftMask1;
+            rightMask1 = rightMask1 << 7 | rightMask1;
+        }
+        leftMasks[0] = leftMask1;
+        rightMasks[0] = rightMask1;
 
-        for(int i = 7; i < )
-
+        for(int i = 1; i <=6; i++){
+            leftMasks[i] = leftMasks[i-1] | leftMasks[i-1] >>> 1;
+            rightMasks[i] = rightMasks[i-1] | rightMasks[i-1] >>> 1;
+        }
     }
 
     /**
@@ -122,7 +132,7 @@ public class  BitBoardUtils {
             playerMask = board.getBlue();
         }
 
-        for(int i = 0; i < 6; i++) {
+        for(int i = 1; i < 7; i++) {
             moves.addAll(generateMovesInDirection(board.getStack(i) & playerMask, empty, "N", i, board)); // North
             moves.addAll(generateMovesInDirection(board.getStack(i) & playerMask, empty, "S", i, board)); // South
             moves.addAll(generateMovesInDirection(board.getStack(i) & playerMask, empty, "E", i, board)); // East
