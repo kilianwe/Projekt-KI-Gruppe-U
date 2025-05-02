@@ -159,11 +159,11 @@ public class  BitBoardUtils {
         //check Direction and shift by required amount
         if (dir.equals("E")) {
             shift = height;
-            fromBits &= ~leftMasks[height-1];
+            fromBits &= ~rightMasks[height-1];
             shifted = (fromBits << shift);
         } else if (dir.equals("W")) {
             shift = height;
-            fromBits &= ~rightMasks[height-1];
+            fromBits &= ~leftMasks[height-1];
             shifted = (fromBits >>> shift);
         } else if (dir.equals("N")) {
             shift = 7 * height;
@@ -174,9 +174,9 @@ public class  BitBoardUtils {
         }
         //extract from -> to sequences from shifted Bitboard
         while (shifted != 0){
-            int to = Long.numberOfTrailingZeros(shifted)+1;
+            int to = Long.numberOfTrailingZeros(shifted);
             int from = 0;
-            if(dir == "S" || dir == "S"){
+            if(dir == "S" || dir == "E"){
                 from = to + shift;
             }else {
                 from = to - shift;
@@ -304,13 +304,17 @@ public class  BitBoardUtils {
         }
 
         public Move toMove(){
-            int fromRow = this.from % BOARD_SIZE;
-            int fromCol = this.from / BOARD_SIZE;
-            int toRow = this.to % BOARD_SIZE;
-            int toCol = this.to / BOARD_SIZE;
+            int fromRow = 6- (this.from % BOARD_SIZE);
+            int fromCol = 6-(this.from / BOARD_SIZE);
+            int toRow = 6-(this.to % BOARD_SIZE);
+            int toCol = 6-(this.to / BOARD_SIZE);
             int moveHeight = this.height;
 
             return new Move(fromRow, fromCol, toRow, toCol, moveHeight);
+        }
+
+        public String toString(){
+            return ("" + from + ", " + to);
         }
     }
 }
