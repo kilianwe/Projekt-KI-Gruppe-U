@@ -132,11 +132,11 @@ public class  BitBoardUtils {
             playerMask = board.getBlue();
         }
 
-        for(int i = 1; i < 7; i++) {
-            moves.addAll(generateMovesInDirection(board.getStack(i) & playerMask, empty, "N", i, board)); // North
-            moves.addAll(generateMovesInDirection(board.getStack(i) & playerMask, empty, "S", i, board)); // South
-            moves.addAll(generateMovesInDirection(board.getStack(i) & playerMask, empty, "E", i, board)); // East
-            moves.addAll(generateMovesInDirection(board.getStack(i) & playerMask, empty, "W", i, board)); // West
+        for(int i = 0; i < 7; i++) {
+            moves.addAll(generateMovesInDirection(board.getStack(i) & playerMask, empty, "N", i+1, board)); // North
+            moves.addAll(generateMovesInDirection(board.getStack(i) & playerMask, empty, "S", i+1, board)); // South
+            moves.addAll(generateMovesInDirection(board.getStack(i) & playerMask, empty, "E", i+1, board)); // East
+            moves.addAll(generateMovesInDirection(board.getStack(i) & playerMask, empty, "W", i+1, board)); // West
 
         }
 
@@ -178,7 +178,7 @@ public class  BitBoardUtils {
             int from = to -shift;
             MovePair move = new MovePair(from, to, height);
             //Checking for jumping violations and out of bounds violations
-            if(from >= 0 && from < 49 && moveDoesntJump(move, board)) {
+            if(from >= 0 && from < 49 ) {
                 moves.add(move);
             }
             shifted &= shifted -1; //niedrigstes Bit löschen

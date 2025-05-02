@@ -20,6 +20,7 @@ public class Main {
         for(BitBoardUtils.MovePair pair : movePairs){
             System.out.println(pair.toMove() + " -> " + pair.toMove().toAlgebraic());
         }
+        System.out.println(movePairs.size() + " moves generated.");
 
 
         bitboard0.printBoard();
