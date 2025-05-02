@@ -12,7 +12,18 @@ public class Main {
         }
         System.out.println(whiteMoves.size() + " moves generated.");
 
-        Board bitboard = new Board();
+        Board bitboard0 = new Board();
+        BitBoardUtils utils = new BitBoardUtils();
+        bitboard0.printBoard();
+        utils.printBitboard(bitboard0.getBlue());
+        utils.printBitboard(bitboard0.getRed());
+        utils.printBitboard(bitboard0.getGuards());
+        for (int i = 0; i < 7; i++) {
+            utils.printBitboard(bitboard0.getStack(i));
+        }
+        BitBoardUtils.MovePair move = new BitBoardUtils.MovePair(0,7,1);
+        Board bitBoard1 = utils.makeMove(move, bitboard0);
+        bitBoard1.printBoard();
     }
 
 
