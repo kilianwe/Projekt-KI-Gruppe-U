@@ -50,7 +50,7 @@ public class Main {
 
         List<BitBoardUtils.MovePair> moves = utils.generateAllLegalMoves(currentPlayer,board);
         BitBoardUtils.MovePair chosenMove = utils.pickMove(moves, board);
-        board = utils.makeMove(chosenMove,board);
+        board = utils.makeMove(chosenMove,board, currentPlayer);
         board.printBoard();
 
         if(currentPlayer == "B"){

@@ -59,7 +59,7 @@ public class  BitBoardUtils {
     }
 
 
-    public Board makeMove(MovePair move, Board board){
+    public Board makeMove(MovePair move, Board board, String player){
         long to = (1L << move.getTo());
         System.out.println("To");
         BitBoardUtils.printBitboard(to);
@@ -67,10 +67,20 @@ public class  BitBoardUtils {
         long from = (1L << move.getFrom());
         System.out.println("From");
         BitBoardUtils.printBitboard(from);
+        long friendly = 0;
+        long enemy = 0;
+
+        if(player == "B"){
+            friendly = board.getBlue();
+            enemy = board.getRed();
+        }else {
+            friendly = board.getRed();
+            enemy = board.getBlue();
+        }
+
+
 
         Board returnBoard = board;
-        System.out.println("Stack1");
-        BitBoardUtils.printBitboard(returnBoard.getStack(0));
 
         //Delete "From" Position
         int n = move.getHeight();
@@ -82,24 +92,27 @@ public class  BitBoardUtils {
             }
             if(n == 0){break;}
         }
-        System.out.println("Stack1");
-        BitBoardUtils.printBitboard(returnBoard.getStack(0));
-        //update blue to include the removal of the "from" position
-        returnBoard.setBlue(returnBoard.getBlue() & returnBoard.getStack(0));
+        //update friendly to include the removal of the "from" position
+        if(player == "B"){
+            returnBoard.setBlue(returnBoard.getBlue() & returnBoard.getStack(0));
+        }else{
+            returnBoard.setRed(returnBoard.getRed() & returnBoard.getStack(0));
+        }
 
-        System.out.println("Blue");
-        BitBoardUtils.printBitboard(returnBoard.getBlue());
+
 
 
         //delete beaten enemy Stack
         for (int i = 0; i < 7; i++){
-            returnBoard.setStack(i, (returnBoard.getStack(i) & returnBoard.getRed() ^ to & returnBoard.getStack(i)) | (returnBoard.getBlue()& returnBoard.getStack(i)) );
+            returnBoard.setStack(i, (returnBoard.getStack(i) & enemy ^ to & returnBoard.getStack(i)) | (friendly & returnBoard.getStack(i)) );
         }
-        //update red to include the removal of beaten stack
-        returnBoard.setRed(returnBoard.getRed() & returnBoard.getStack(0));
+        //update enemy to include the removal of beaten stack
+        if(player == "B"){
+            returnBoard.setRed(enemy & returnBoard.getStack(0));
+        }else {
+            returnBoard.setBlue((enemy & returnBoard.getStack(0)));
+        }
 
-        System.out.println("Red");
-        BitBoardUtils.printBitboard(returnBoard.getRed());
 
         //increase Stacks which player who moved owns
         n = move.getHeight();
@@ -114,8 +127,13 @@ public class  BitBoardUtils {
         System.out.println("Stack 1");
         BitBoardUtils.printBitboard(returnBoard.getStack(0));
 
-        //update blue to include the increased Stack
-        returnBoard.setBlue(returnBoard.getStack(0) ^ returnBoard.getRed());
+        //update friendly to include the increased Stack
+        if(player == "B"){
+            returnBoard.setBlue(returnBoard.getStack(0) ^ returnBoard.getRed());
+        }else{
+            returnBoard.setRed(returnBoard.getStack(0) ^ returnBoard.getBlue());
+        }
+
 
         // update guard mask
         if((returnBoard.getGuards() | to) == returnBoard.getGuards() || (returnBoard.getGuards() | from) == returnBoard.getGuards()){
