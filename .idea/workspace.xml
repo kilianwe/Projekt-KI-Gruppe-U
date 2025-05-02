@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="bc5f93d3-b357-43e1-b50f-07f7a9d0d7f9" name="Changes" comment="new move generator">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/BitBoardUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Board.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/BoardInitializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/GuardTowersMoveGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Move.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Piece.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/VictoryChecker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/GuardTowersMoveGeneratorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekt KI Gruppe U/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekt KI Gruppe U/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekt KI Gruppe U/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekt KI Gruppe U/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekt KI Gruppe U/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekt KI Gruppe U/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekt KI Gruppe U/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekt KI Gruppe U/Projekt KI Gruppe U.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekt KI Gruppe U/src/BitBoardUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekt KI Gruppe U/src/Board.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekt KI Gruppe U/src/BoardInitializer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekt KI Gruppe U/src/GuardTowersMoveGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekt KI Gruppe U/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekt KI Gruppe U/src/Move.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekt KI Gruppe U/src/Piece.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekt KI Gruppe U/src/VictoryChecker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekt-KI-Gruppe-U.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Projekt-KI-Gruppe-U/Board$MovePair.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Projekt-KI-Gruppe-U/Board.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Projekt-KI-Gruppe-U/BoardInitializer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Projekt-KI-Gruppe-U/GuardTowersMoveGenerator$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Projekt-KI-Gruppe-U/GuardTowersMoveGenerator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Projekt-KI-Gruppe-U/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Projekt-KI-Gruppe-U/Move.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Projekt-KI-Gruppe-U/Piece$Type.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Projekt-KI-Gruppe-U/Piece.class" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;erikputzier&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/kilianwe/Projekt-KI-Gruppe-U.git&quot;,
+    &quot;accountId&quot;: &quot;6ba0e5d8-6a51-4cc5-86af-e928eb9a9345&quot;
+  }
+}</component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2w7nQa618DWPbtiZdM2GBt19ZgZ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Uni/SoSe25/Projekt_KI/Projekt-KI-Gruppe-U&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;ml.llm.LLMConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Projekt-KI-Gruppe-U" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bc5f93d3-b357-43e1-b50f-07f7a9d0d7f9" name="Changes" comment="" />
+      <created>1745401464696</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1745401464696</updated>
+      <workItem from="1745401465776" duration="154000" />
+      <workItem from="1745402429989" duration="621000" />
+      <workItem from="1745403066421" duration="1922000" />
+      <workItem from="1745408089738" duration="1436000" />
+      <workItem from="1745504221308" duration="3776000" />
+      <workItem from="1745509392514" duration="169000" />
+      <workItem from="1745509667483" duration="776000" />
+      <workItem from="1745751733253" duration="3000" />
+      <workItem from="1746187410932" duration="1132000" />
+      <workItem from="1746188565265" duration="475000" />
+      <workItem from="1746189063577" duration="8000" />
+      <workItem from="1746189114325" duration="206000" />
+      <workItem from="1746189334173" duration="123000" />
+      <workItem from="1746189803562" duration="104000" />
+      <workItem from="1746189918786" duration="934000" />
+      <workItem from="1746190869851" duration="295000" />
+    </task>
+    <task id="LOCAL-00001" summary="Implemented basic classes">
+      <option name="closed" value="true" />
+      <created>1745408118594</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1745408118594</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Implemented a better way to create the starting position.">
+      <option name="closed" value="true" />
+      <created>1745507684174</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1745507684174</updated>
+    </task>
+    <task id="LOCAL-00003" summary="new move generator">
+      <option name="closed" value="true" />
+      <created>1745509706585</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1745509706585</updated>
+    </task>
+    <task id="LOCAL-00004" summary="new move generator">
+      <option name="closed" value="true" />
+      <created>1745510386704</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1745510386704</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Implemented basic classes" />
+    <MESSAGE value="Implemented a better way to create the starting position." />
+    <MESSAGE value="new move generator" />
+    <option name="LAST_COMMIT_MESSAGE" value="new move generator" />
+  </component>
+</project>

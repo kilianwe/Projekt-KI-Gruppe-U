@@ -30,4 +30,3 @@ public class Move {
         return new Move(fromRow, fromCol, toRow, toCol, moveHeight);
     }
 }
-

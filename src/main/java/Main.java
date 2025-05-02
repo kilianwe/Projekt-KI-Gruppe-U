@@ -21,10 +21,22 @@ public class Main {
         for (int i = 0; i < 7; i++) {
             utils.printBitboard(bitboard0.getStack(i));
         }
-        BitBoardUtils.MovePair move = new BitBoardUtils.MovePair(0,7,1);
+        BitBoardUtils.MovePair move = new BitBoardUtils.MovePair(0,1,1);
         Board bitBoard1 = utils.makeMove(move, bitboard0);
         bitBoard1.printBoard();
+        move = new BitBoardUtils.MovePair(1,15,2);
+        Board bitBoard2 = utils.makeMove(move,bitBoard1);
+        bitBoard2.printBoard();
+
+        move = new BitBoardUtils.MovePair(15,17,2);
+        Board bitBoard3 = utils.makeMove(move, bitBoard2);
+        bitBoard3.printBoard();
+
+        move = new BitBoardUtils.MovePair(17,31,2);
+        Board bitBoard4 = utils.makeMove(move, bitBoard3);
+        bitBoard4.printBoard();
+
+
+
     }
-
-
 }
