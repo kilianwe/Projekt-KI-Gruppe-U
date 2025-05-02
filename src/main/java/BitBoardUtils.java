@@ -174,8 +174,13 @@ public class  BitBoardUtils {
         }
         //extract from -> to sequences from shifted Bitboard
         while (shifted != 0){
-            int to = Long.numberOfTrailingZeros(shifted);
-            int from = to -shift;
+            int to = Long.numberOfTrailingZeros(shifted)+1;
+            int from = 0;
+            if(dir == "S" || dir == "S"){
+                from = to + shift;
+            }else {
+                from = to - shift;
+            }
             MovePair move = new MovePair(from, to, height);
             //Checking for jumping violations and out of bounds violations
             if(from >= 0 && from < 49 ) {
