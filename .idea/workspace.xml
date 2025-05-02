@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc5f93d3-b357-43e1-b50f-07f7a9d0d7f9" name="Changes" comment="new move generator">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BitBoardUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BitBoardUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Board.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FenUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FenUtils.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +130,7 @@
       <workItem from="1746189918786" duration="934000" />
       <workItem from="1746190869851" duration="295000" />
       <workItem from="1746191730194" duration="11659000" />
-      <workItem from="1746209614848" duration="1256000" />
+      <workItem from="1746209614848" duration="2050000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented basic classes">
       <option name="closed" value="true" />

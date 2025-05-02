@@ -45,11 +45,11 @@ public class  BitBoardUtils {
         if(player == "B"){
             playerMask = board.getBlue();
             enemyMask = board.getRed();
-            enemyCastle = 1L << 45;
+            enemyCastle = 1L << 3;
         } else if (player == "R") {
             playerMask = board.getRed();
             enemyMask = board.getBlue();
-            enemyCastle = 1L << 3;
+            enemyCastle = 1L << 45;
         }
 
         if((board.getGuards() & playerMask) == enemyCastle || (board.getGuards() & playerMask) == (board.getGuards() & enemyMask)){
