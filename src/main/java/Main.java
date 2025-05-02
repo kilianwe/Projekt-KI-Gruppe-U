@@ -15,7 +15,7 @@ public class Main {
 
         Board bitboard0 = new Board();
         BitBoardUtils utils = new BitBoardUtils();
-        List<BitBoardUtils.MovePair> movePairs = utils.generateAllLegalMoves("B", bitboard0);
+        List<BitBoardUtils.MovePair> movePairs = utils.generateAllLegalMoves("R", bitboard0);
         System.out.println(movePairs);
         for(BitBoardUtils.MovePair pair : movePairs){
             System.out.println(pair.toMove() + " -> " + pair.toMove().toAlgebraic());

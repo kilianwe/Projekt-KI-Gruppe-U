@@ -8,8 +8,10 @@ public class  BitBoardUtils {
     private final Map<MovePair, Long> pathMaskMap = new HashMap<>();
     private long[] leftMasks = new long[BOARD_SIZE];
     private long[] rightMasks = new long[BOARD_SIZE];
+    private long fullMask;
 
     public BitBoardUtils(){
+        this.fullMask = (1L<<49)-1;
         precomputePathMasks();
         long leftMask1 = 1L<<6;
         long rightMask1 = 1L;
@@ -17,12 +19,12 @@ public class  BitBoardUtils {
             leftMask1 = leftMask1 << 7 | leftMask1;
             rightMask1 = rightMask1 << 7 | rightMask1;
         }
-        leftMasks[0] = leftMask1;
-        rightMasks[0] = rightMask1;
+        this.leftMasks[0] = leftMask1;
+        this.rightMasks[0] = rightMask1;
 
         for(int i = 1; i <=6; i++){
-            leftMasks[i] = leftMasks[i-1] | leftMasks[i-1] >>> 1;
-            rightMasks[i] = rightMasks[i-1] | rightMasks[i-1] >>> 1;
+            this.leftMasks[i] = this.leftMasks[i-1] | this.leftMasks[i-1] >>> 1;
+            this.rightMasks[i] = this.rightMasks[i-1] | this.rightMasks[i-1] >>> 1;
         }
     }
 
@@ -160,17 +162,17 @@ public class  BitBoardUtils {
         if (dir.equals("E")) {
             shift = height;
             fromBits &= ~rightMasks[height-1];
-            shifted = (fromBits >>> shift);
+            shifted = (fromBits >>> shift)&fullMask;
         } else if (dir.equals("W")) {
             shift = height;
             fromBits &= ~leftMasks[height-1];
-            shifted = (fromBits << shift);
+            shifted = (fromBits << shift)&fullMask;
         } else if (dir.equals("N")) {
             shift = 7 * height;
-            shifted = (fromBits << shift);
+            shifted = (fromBits << shift)&fullMask;
         } else { // South
             shift = 7 * height;
-            shifted = (fromBits >>> shift);
+            shifted = (fromBits >>> shift)&fullMask;
         }
         //extract from -> to sequences from shifted Bitboard
         while (shifted != 0){

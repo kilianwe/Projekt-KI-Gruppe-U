@@ -42,8 +42,8 @@ public class Board {
      */
     public Board(){
         this. guards = 1L<<3 | 1L<<45;
-        this.red = 1L | 1L<<1 | 1L<<3 | 1L<<5 | 1L<<6| 1L<<9| 1L<<11| 1L<<17;
-        this.blue = 1L<<31| 1L<<37| 1L<<39| 1L<<42| 1L<<43| 1L<<45| 1L<<47| 1L<<48;
+        this.blue = 1L | 1L<<1 | 1L<<3 | 1L<<5 | 1L<<6| 1L<<9| 1L<<11| 1L<<17;
+        this.red = 1L<<31| 1L<<37| 1L<<39| 1L<<42| 1L<<43| 1L<<45| 1L<<47| 1L<<48;
         this.stacks[0] = this.blue | this.red;
         for (int i = 1; i < 7; i++){
             this.stacks[i] = 0L;
