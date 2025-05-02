@@ -3,6 +3,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        /**
         Board bitboard0 = new Board();
         BitBoardUtils utils = new BitBoardUtils();
         List<BitBoardUtils.MovePair> movePairs = utils.generateAllLegalMoves("R", bitboard0);
@@ -39,6 +40,25 @@ public class Main {
         bitBoard4.printBoard();
 
 
+    */
+    Board board = new Board();
+    BitBoardUtils utils = new BitBoardUtils();
+    board.printBoard();
+    int numberOfTurns = 3;
+    String currentPlayer = "B";
+    while(!(utils.checkplayerWon("B", board) || utils.checkplayerWon("R", board)) && numberOfTurns != 0){
 
+        List<BitBoardUtils.MovePair> moves = utils.generateAllLegalMoves(currentPlayer,board);
+        BitBoardUtils.MovePair chosenMove = utils.pickMove(moves, board);
+        board = utils.makeMove(chosenMove,board);
+        board.printBoard();
+
+        if(currentPlayer == "B"){
+            currentPlayer = "R";
+        }else{
+            currentPlayer = "B";
+        }
+        numberOfTurns--;
+    }
     }
 }
