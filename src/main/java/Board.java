@@ -81,11 +81,11 @@ public class Board {
                 }
                 // Sonst Red
                 else if (((red >> index) & 1L) != 0) {
-                    symbol = 'R';
+                    symbol = 'B';
                 }
                 // Sonst Blue
                 else if (((blue >> index) & 1L) != 0) {
-                    symbol = 'B';
+                    symbol = 'R';
                 }
 
                 // Stackhöhe ermitteln
