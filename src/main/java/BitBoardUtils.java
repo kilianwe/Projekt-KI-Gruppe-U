@@ -304,10 +304,10 @@ public class  BitBoardUtils {
         }
 
         public Move toMove(){
-            int fromRow = 6- (this.from % BOARD_SIZE);
-            int fromCol = 6-(this.from / BOARD_SIZE);
-            int toRow = 6-(this.to % BOARD_SIZE);
-            int toCol = 6-(this.to / BOARD_SIZE);
+            int fromCol = 6- (this.from % BOARD_SIZE);
+            int fromRow = 6-(this.from / BOARD_SIZE);
+            int toCol = 6-(this.to % BOARD_SIZE);
+            int toRow = 6-(this.to / BOARD_SIZE);
             int moveHeight = this.height;
 
             return new Move(fromRow, fromCol, toRow, toCol, moveHeight);
