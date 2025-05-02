@@ -160,11 +160,11 @@ public class  BitBoardUtils {
         if (dir.equals("E")) {
             shift = height;
             fromBits &= ~rightMasks[height-1];
-            shifted = (fromBits << shift);
+            shifted = (fromBits >>> shift);
         } else if (dir.equals("W")) {
             shift = height;
             fromBits &= ~leftMasks[height-1];
-            shifted = (fromBits >>> shift);
+            shifted = (fromBits << shift);
         } else if (dir.equals("N")) {
             shift = 7 * height;
             shifted = (fromBits << shift);
