@@ -6,8 +6,15 @@ import java.util.Map;
 public class  BitBoardUtils {
     public static final int BOARD_SIZE = 7;
     private final Map<MovePair, Long> pathMaskMap = new HashMap<>();
-    private long[] leftMasks;
-    private long[] rightMasks;
+    private long[] leftMasks = new long[BOARD_SIZE];
+    private long[] rightMasks = new long[BOARD_SIZE];
+
+    public BitBoardUtils(){
+        precomputePathMasks();
+
+        for(int i = 7; i < )
+
+    }
 
     /**
      * Method to check if the Player who has just made a move has won the game.
@@ -279,6 +286,16 @@ public class  BitBoardUtils {
             if (!(o instanceof MovePair)) return false;
             MovePair p = (MovePair) o;
             return from == p.from && to == p.to;
+        }
+
+        public Move toMove(){
+            int fromRow = this.from % BOARD_SIZE;
+            int fromCol = this.from / BOARD_SIZE;
+            int toRow = this.to % BOARD_SIZE;
+            int toCol = this.to / BOARD_SIZE;
+            int moveHeight = this.height;
+
+            return new Move(fromRow, fromCol, toRow, toCol, moveHeight);
         }
     }
 

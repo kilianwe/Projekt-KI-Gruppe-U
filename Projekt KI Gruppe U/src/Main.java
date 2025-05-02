@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -14,6 +15,13 @@ public class Main {
 
         Board bitboard0 = new Board();
         BitBoardUtils utils = new BitBoardUtils();
+        List<BitBoardUtils.MovePair> movePairs = utils.generateAllLegalMoves("B", bitboard0);
+        List<Move> moves = new ArrayList<>();
+        for(BitBoardUtils.MovePair pair : movePairs){
+            System.out.println(pair.toMove() + " -> " + pair.toMove().toAlgebraic());
+        }
+
+
         bitboard0.printBoard();
         utils.printBitboard(bitboard0.getBlue());
         utils.printBitboard(bitboard0.getRed());
