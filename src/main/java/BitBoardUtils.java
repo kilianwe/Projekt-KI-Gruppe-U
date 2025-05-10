@@ -105,7 +105,7 @@ public class  BitBoardUtils {
             returnBoard.setStack(i, (returnBoard.getStack(i) & enemy ^ to & returnBoard.getStack(i)) | (friendly & returnBoard.getStack(i)) );
         }
         //update enemy to include the removal of beaten stack
-        if(player == "B"){
+        if(board.getCurrentPlayer() == Player.BLUE){
             returnBoard.setRed(enemy & returnBoard.getStack(0));
         }else {
             returnBoard.setBlue((enemy & returnBoard.getStack(0)));
