@@ -76,7 +76,7 @@ public class Board {
                 char symbol = '.';
 
                 // Guard hat Vorrang
-                if (((guards & blue >> index) & 1L) != 0) {
+                if (((guards >> index) & 1L) != 0) {
                     symbol = 'G';
                 }
                 // Sonst Red
