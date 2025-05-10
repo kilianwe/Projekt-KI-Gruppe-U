@@ -5,11 +5,11 @@ import java.util.Map;
 
 public class Board {
 
-    // TODO: 30.04.2025 Possibly convert masks into a separate Class "GameState" which contains all relevant information to describe the Current state of the Game
     private long guards;
     private long blue;
     private long red;
     private long[] stacks = new long[7];
+    private Player currentPlayer;
 
     public void setGuards(long guards) {
         this.guards = guards;
@@ -30,11 +30,20 @@ public class Board {
     /**
      * Constructor to create a specific Board according to Parameters
      */
-    public Board(long guards, long blue, long red, long[] stacks){
+    public Board(long guards, long blue, long red, long[] stacks, Player player){
         this.guards = guards;
         this.blue = blue;
         this.red = red;
         this.stacks = stacks;
+        this.currentPlayer = player;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 
     /**
@@ -48,6 +57,7 @@ public class Board {
         for (int i = 1; i < 7; i++){
             this.stacks[i] = 0L;
         }
+        this.currentPlayer = Player.BLUE;
     }
 
     public long getGuards() {
@@ -64,6 +74,11 @@ public class Board {
 
     public long getStack(int i) {
         return stacks[i];
+    }
+
+    // TODO: 10.05.2025 fenToBoard implementieren 
+    public Board fentoBoard(){
+        return new Board();
     }
 
     public void printBoard() {

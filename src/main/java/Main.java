@@ -45,19 +45,13 @@ public class Main {
     BitBoardUtils utils = new BitBoardUtils();
     board.printBoard();
     int numberOfTurns = 100;
-    String currentPlayer = "B";
-    while(!(utils.checkplayerWon("B", board) || utils.checkplayerWon("R", board))){
+    while(!(utils.checkplayerWon(board))){
 
-        List<BitBoardUtils.MovePair> moves = utils.generateAllLegalMoves(currentPlayer,board);
+        List<BitBoardUtils.MovePair> moves = utils.generateAllLegalMoves(board);
         BitBoardUtils.MovePair chosenMove = utils.pickMove(moves, board);
-        board = utils.makeMove(chosenMove,board, currentPlayer);
+        board = utils.makeMove(chosenMove,board);
         board.printBoard();
 
-        if(currentPlayer == "B"){
-            currentPlayer = "R";
-        }else{
-            currentPlayer = "B";
-        }
         numberOfTurns--;
     }
     }
