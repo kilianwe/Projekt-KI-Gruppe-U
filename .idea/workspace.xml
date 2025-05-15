@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc5f93d3-b357-43e1-b50f-07f7a9d0d7f9" name="Changes" comment="new move generator">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FenUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FenUtils.java" afterDir="false" />
+    <list default="true" id="bc5f93d3-b357-43e1-b50f-07f7a9d0d7f9" name="Changes" comment="prettier formatting">
+      <change beforePath="$PROJECT_DIR$/src/main/java/GuardTowersMoveGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Piece.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/VictoryChecker.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,8 +100,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
-        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
       </set>
     </attachedChunks>
   </component>
@@ -134,6 +134,7 @@
       <workItem from="1746220846566" duration="2000" />
       <workItem from="1746220856018" duration="22000" />
       <workItem from="1746872107856" duration="1189000" />
+      <workItem from="1747322386437" duration="299000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented basic classes">
       <option name="closed" value="true" />
@@ -167,7 +168,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745510386704</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="prettier formatting">
+      <option name="closed" value="true" />
+      <created>1747322444530</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1747322444530</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,6 +197,7 @@
     <MESSAGE value="Implemented basic classes" />
     <MESSAGE value="Implemented a better way to create the starting position." />
     <MESSAGE value="new move generator" />
-    <option name="LAST_COMMIT_MESSAGE" value="new move generator" />
+    <MESSAGE value="prettier formatting" />
+    <option name="LAST_COMMIT_MESSAGE" value="prettier formatting" />
   </component>
 </project>
