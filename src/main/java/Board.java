@@ -30,7 +30,7 @@ public class Board {
     /**
      * Constructor to create a specific Board according to Parameters
      */
-    public Board(long guards, long blue, long red, long[] stacks, Player player){
+    public Board(long guards, long blue, long red, long[] stacks, Player player) {
         this.guards = guards;
         this.blue = blue;
         this.red = red;
@@ -49,12 +49,12 @@ public class Board {
     /**
      * Constructor to create the starting Board
      */
-    public Board(){
-        this. guards = 1L<<3 | 1L<<45;
-        this.red = 1L | 1L<<1 | 1L<<3 | 1L<<5 | 1L<<6| 1L<<9| 1L<<11| 1L<<17;
-        this.blue = 1L<<31| 1L<<37| 1L<<39| 1L<<42| 1L<<43| 1L<<45| 1L<<47| 1L<<48;
+    public Board() {
+        this.guards = 1L << 3 | 1L << 45;
+        this.red = 1L | 1L << 1 | 1L << 3 | 1L << 5 | 1L << 6 | 1L << 9 | 1L << 11 | 1L << 17;
+        this.blue = 1L << 31 | 1L << 37 | 1L << 39 | 1L << 42 | 1L << 43 | 1L << 45 | 1L << 47 | 1L << 48;
         this.stacks[0] = this.blue | this.red;
-        for (int i = 1; i < 7; i++){
+        for (int i = 1; i < 7; i++) {
             this.stacks[i] = 0L;
         }
         this.currentPlayer = Player.BLUE;
@@ -77,7 +77,7 @@ public class Board {
     }
 
     // TODO: 10.05.2025 fenToBoard implementieren 
-    public Board fentoBoard(){
+    public Board fentoBoard() {
         return new Board();
     }
 

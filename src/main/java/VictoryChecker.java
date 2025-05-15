@@ -2,7 +2,7 @@ import java.util.Objects;
 
 public final class VictoryChecker {
 
-    public enum Winner { RED, BLUE, NONE }
+    public enum Winner {RED, BLUE, NONE}
 
     private static final int BOARD_SIZE = 7;
     private static final int RED_CASTLE_ROW = 0, RED_CASTLE_COL = 3;
@@ -13,8 +13,8 @@ public final class VictoryChecker {
      *
      * @param board the current position, using the same 7 x 7 array layout as everywhere else in the project
      * @return {@link Winner#RED} – red has won;
-     *         {@link Winner#BLUE} – blue has won;
-     *         {@link Winner#NONE} – no winner yet
+     * {@link Winner#BLUE} – blue has won;
+     * {@link Winner#NONE} – no winner yet
      */
     public static Winner checkWinner(Piece[][] board) {
         Objects.requireNonNull(board, "board must not be null");
@@ -65,5 +65,6 @@ public final class VictoryChecker {
     }
 
     //‑‑‑‑‑‑‑‑‑‑ prevent instantiation ‑‑‑‑‑‑‑‑‑‑
-    private VictoryChecker() { }
+    private VictoryChecker() {
+    }
 }

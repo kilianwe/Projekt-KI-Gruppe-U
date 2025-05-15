@@ -16,7 +16,8 @@ import java.util.List;
  */
 public final class FenUtils {
 
-    private FenUtils() { }
+    private FenUtils() {
+    }
 
     /* ====================================================================== */
     /*  Public API                                                           */
@@ -24,7 +25,6 @@ public final class FenUtils {
 
     /**
      * Parse {@code fen}, build a {@link Board}, and run
-     * {@link BitBoardUtils#generateAllLegalMoves(String, Board)}.
      *
      * @param fen full FEN string (board + side to move)
      * @return list of legal moves for the side to move
@@ -195,7 +195,8 @@ public final class FenUtils {
                 // occupancy stacks
                 for (int h = 0; h < height; h++) stacks[h] |= bit;
 
-                if (isRed) red |= bit; else blue |= bit;
+                if (isRed) red |= bit;
+                else blue |= bit;
                 if (isGuard) guards |= bit;
 
                 col++; // advance to next column
