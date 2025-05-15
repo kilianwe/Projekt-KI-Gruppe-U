@@ -206,7 +206,7 @@ public final class FenUtils {
                 throw new IllegalArgumentException("Rank " + (SIZE - row) + " does not contain exactly " + SIZE + " fields (had " + col + ")");
         }
         
-        return new Board(guards, blue, red, stacks);
+        return new Board(guards, blue, red, stacks, Player.BLUE);
     }
 
     /* ====================================================================== */

@@ -60,6 +60,10 @@ public class Board {
         this.currentPlayer = Player.BLUE;
     }
 
+    public Board(String fen){
+
+    }
+
     public long getGuards() {
         return guards;
     }
@@ -76,10 +80,6 @@ public class Board {
         return stacks[i];
     }
 
-    // TODO: 10.05.2025 fenToBoard implementieren 
-    public Board fentoBoard() {
-        return new Board();
-    }
 
     public void printBoard() {
         final int BOARD_SIZE = 7;
