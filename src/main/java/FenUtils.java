@@ -24,7 +24,6 @@ public final class FenUtils {
 
     /**
      * Parse {@code fen}, build a {@link Board}, and run
-     * {@link BitBoardUtils#generateAllLegalMoves(String, Board)}.
      *
      * @param fen full FEN string (board + side to move)
      * @return list of legal moves for the side to move
@@ -46,7 +45,7 @@ public final class FenUtils {
             default -> throw new IllegalArgumentException("Side to move must be 'r' or 'b'");
         };
 
-        return new BitBoardUtils().generateAllLegalMoves(player, board);
+        return new BitBoardUtils().generateAllLegalMoves(board);
     }
 
     /**
@@ -204,7 +203,7 @@ public final class FenUtils {
             if (col != SIZE)
                 throw new IllegalArgumentException("Rank " + (SIZE - row) + " does not contain exactly " + SIZE + " fields (had " + col + ")");
         }
-
+        
         return new Board(guards, blue, red, stacks);
     }
 
