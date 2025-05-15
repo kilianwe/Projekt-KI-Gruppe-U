@@ -3,46 +3,47 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class  BitBoardUtils {
+public class BitBoardUtils {
     public static final int BOARD_SIZE = 7;
     private final Map<MovePair, Long> pathMaskMap = new HashMap<>();
     private long[] leftMasks = new long[BOARD_SIZE];
     private long[] rightMasks = new long[BOARD_SIZE];
     private long fullMask;
 
-    public BitBoardUtils(){
-        this.fullMask = (1L<<49)-1;
+    public BitBoardUtils() {
+        this.fullMask = (1L << 49) - 1;
         precomputePathMasks();
-        long leftMask1 = 1L<<6;
+        long leftMask1 = 1L << 6;
         long rightMask1 = 1L;
-        for(int i = 0; i < 6; i++){
+        for (int i = 0; i < 6; i++) {
             leftMask1 = leftMask1 << 7 | leftMask1;
             rightMask1 = rightMask1 << 7 | rightMask1;
         }
         this.leftMasks[0] = leftMask1;
         this.rightMasks[0] = rightMask1;
 
-        for(int i = 1; i <=6; i++){
-            this.leftMasks[i] = this.leftMasks[i-1] | this.leftMasks[i-1] >>> 1;
-            this.rightMasks[i] = this.rightMasks[i-1] | this.rightMasks[i-1] >>> 1;
+        for (int i = 1; i <= 6; i++) {
+            this.leftMasks[i] = this.leftMasks[i - 1] | this.leftMasks[i - 1] >>> 1;
+            this.rightMasks[i] = this.rightMasks[i - 1] | this.rightMasks[i - 1] >>> 1;
         }
     }
 
-    public MovePair pickMove(List<MovePair> moves, Board board){
-        int randomNum = (int)(Math.random() * moves.size());
+    public MovePair pickMove(List<MovePair> moves, Board board) {
+        int randomNum = (int) (Math.random() * moves.size());
         return moves.get(randomNum);
     }
 
     /**
      * Method to check if the Player who has just made a move has won the game.
+     *
      * @param player
      * @return boolean
      */
-    public boolean checkplayerWon(Board board){
+    public boolean checkplayerWon(Board board) {
         long playerMask = 0;
         long enemyCastle = 0;
         long enemyMask = 0;
-        if(board.getCurrentPlayer() == Player.BLUE){
+        if (board.getCurrentPlayer() == Player.BLUE) {
             playerMask = board.getBlue();
             enemyMask = board.getRed();
             enemyCastle = 1L << 3;
@@ -50,93 +51,94 @@ public class  BitBoardUtils {
             playerMask = board.getRed();
             enemyMask = board.getBlue();
             enemyCastle = 1L << 45;
-        }else {
+        } else {
             return false;
         }
 
-        if((board.getGuards() & playerMask) == enemyCastle || (board.getGuards() & playerMask) == (board.getGuards() & enemyMask)){
+        if ((board.getGuards() & playerMask) == enemyCastle || (board.getGuards() & playerMask) == (board.getGuards() & enemyMask)) {
             return true;
         }
         return false;
     }
 
 
-    public Board makeMove(MovePair move, Board board){
+    public Board makeMove(MovePair move, Board board) {
         long to = (1L << move.getTo());
 
         long from = (1L << move.getFrom());
         long friendly = 0;
         long enemy = 0;
 
-        if(board.getCurrentPlayer() == Player.BLUE){
+        if (board.getCurrentPlayer() == Player.BLUE) {
             friendly = board.getBlue();
             enemy = board.getRed();
-        }else {
+        } else {
             friendly = board.getRed();
             enemy = board.getBlue();
         }
-
 
 
         Board returnBoard = board;
 
         //Delete "From" Position
         int n = move.getHeight();
-        for (int i = 6; i >= 0; i--){
+        for (int i = 6; i >= 0; i--) {
             //If there is a bit present at the "from" position the ^= operation will lead to that bit being deleted which means the height of the Stack at that position will be decreased by 1
-            if((returnBoard.getStack(i) | from) == returnBoard.getStack(i)) {
-                returnBoard.setStack(i, returnBoard.getStack(i)^ from);
+            if ((returnBoard.getStack(i) | from) == returnBoard.getStack(i)) {
+                returnBoard.setStack(i, returnBoard.getStack(i) ^ from);
                 n--;
             }
-            if(n == 0){break;}
+            if (n == 0) {
+                break;
+            }
         }
         //update friendly to include the removal of the "from" position
-        if(board.getCurrentPlayer() == Player.BLUE){
+        if (board.getCurrentPlayer() == Player.BLUE) {
             returnBoard.setBlue(returnBoard.getBlue() & returnBoard.getStack(0));
-        }else{
+        } else {
             returnBoard.setRed(returnBoard.getRed() & returnBoard.getStack(0));
         }
 
 
-
-
         //delete beaten enemy Stack
-        for (int i = 0; i < 7; i++){
-            returnBoard.setStack(i, (returnBoard.getStack(i) & enemy ^ to & returnBoard.getStack(i)) | (friendly & returnBoard.getStack(i)) );
+        for (int i = 0; i < 7; i++) {
+            returnBoard.setStack(i, (returnBoard.getStack(i) & enemy ^ to & returnBoard.getStack(i)) | (friendly & returnBoard.getStack(i)));
         }
         //update enemy to include the removal of beaten stack
-        if(board.getCurrentPlayer() == Player.BLUE){
+        if (board.getCurrentPlayer() == Player.BLUE) {
             returnBoard.setRed(enemy & returnBoard.getStack(0));
-        }else {
+        } else {
             returnBoard.setBlue((enemy & returnBoard.getStack(0)));
         }
 
 
         //increase Stacks which player who moved owns
         n = move.getHeight();
-        for (int i = 0; i < 7; i++){
+        for (int i = 0; i < 7; i++) {
             //If there is no bit present at the "to" position the | operation will lead to that bit being added which means the height of the Stack at that position will be increased by 1
-            if((returnBoard.getStack(i) | to) != returnBoard.getStack(i)) {
+            if ((returnBoard.getStack(i) | to) != returnBoard.getStack(i)) {
                 returnBoard.setStack(i, returnBoard.getStack(i) | to);
                 n--;
             }
-            if(n == 0){break;}
+            if (n == 0) {
+                break;
+            }
         }
 
         //update friendly to include the increased Stack
-        if(board.getCurrentPlayer() == Player.BLUE){
+        if (board.getCurrentPlayer() == Player.BLUE) {
             returnBoard.setBlue(returnBoard.getStack(0) ^ returnBoard.getRed());
-        }else{
+        } else {
             returnBoard.setRed(returnBoard.getStack(0) ^ returnBoard.getBlue());
         }
 
 
         // update guard mask
-        if((returnBoard.getGuards() | to) == returnBoard.getGuards() || (returnBoard.getGuards() | from) == returnBoard.getGuards()){
-            returnBoard.setGuards(returnBoard.getGuards()^from^to);
+        if ((returnBoard.getGuards() | to) == returnBoard.getGuards() || (returnBoard.getGuards() | from) == returnBoard.getGuards()) {
+            returnBoard.setGuards(returnBoard.getGuards() ^ from ^ to);
         }
         //update currentPlayer
-        if(board.getCurrentPlayer() == Player.BLUE){
+        if (board.getCurrentPlayer() == Player.BLUE) {
             returnBoard.setCurrentPlayer(Player.RED);
         } else if (board.getCurrentPlayer() == Player.RED) {
             returnBoard.setCurrentPlayer(Player.BLUE);
@@ -147,23 +149,24 @@ public class  BitBoardUtils {
 
     /**
      * Generates all Legal Moves in all Directions for a specific player. Boundary Conflicts and jumping violations are handled in generateMovesInDirection.
+     *
      * @return List of MovePairs, giving all possible moves in all direction for the current state of the Game.
      */
-    public List<MovePair> generateAllLegalMoves(Board board){
+    public List<MovePair> generateAllLegalMoves(Board board) {
         long empty = ~board.getStack(0);
         List<MovePair> moves = new ArrayList<>();
         long playerMask = 0L;
-        if(board.getCurrentPlayer() == Player.RED){
+        if (board.getCurrentPlayer() == Player.RED) {
             playerMask = board.getRed();
         } else if (board.getCurrentPlayer() == Player.BLUE) {
             playerMask = board.getBlue();
         }
 
-        for(int i = 0; i < 7; i++) {
-            moves.addAll(generateMovesInDirection(board.getStack(i) & playerMask, empty, "N", i+1, board)); // North
-            moves.addAll(generateMovesInDirection(board.getStack(i) & playerMask, empty, "S", i+1, board)); // South
-            moves.addAll(generateMovesInDirection(board.getStack(i) & playerMask, empty, "E", i+1, board)); // East
-            moves.addAll(generateMovesInDirection(board.getStack(i) & playerMask, empty, "W", i+1, board)); // West
+        for (int i = 0; i < 7; i++) {
+            moves.addAll(generateMovesInDirection(board.getStack(i) & playerMask, empty, "N", i + 1, board)); // North
+            moves.addAll(generateMovesInDirection(board.getStack(i) & playerMask, empty, "S", i + 1, board)); // South
+            moves.addAll(generateMovesInDirection(board.getStack(i) & playerMask, empty, "E", i + 1, board)); // East
+            moves.addAll(generateMovesInDirection(board.getStack(i) & playerMask, empty, "W", i + 1, board)); // West
 
         }
 
@@ -172,13 +175,14 @@ public class  BitBoardUtils {
 
     /**
      * Generates all Moves in a specific Direction. Does NOT check if pieces Jump over others for their move. DOES Check if Boundaries are violated.
+     *
      * @param fromBits Bitboard containing starting positions of all relevant pieces
-     * @param empty Bitboard containing position of empty fields
-     * @param dir String giving the Direction for which the moves should be calculated (North-> "N",East-> "E", South-> "S", West-> "W" )
-     * @param height int specifying the Minimum height of the Stacks for which the Moves should be calculated. Also determines the Number of steps one Move has.
+     * @param empty    Bitboard containing position of empty fields
+     * @param dir      String giving the Direction for which the moves should be calculated (North-> "N",East-> "E", South-> "S", West-> "W" )
+     * @param height   int specifying the Minimum height of the Stacks for which the Moves should be calculated. Also determines the Number of steps one Move has.
      * @return List of MovePairs, giving all possible moves which do not violate Boundary's for the specified Direction.
      */
-    private List<MovePair> generateMovesInDirection(long fromBits, long empty, String dir, int height, Board board){
+    private List<MovePair> generateMovesInDirection(long fromBits, long empty, String dir, int height, Board board) {
         List<MovePair> moves = new ArrayList<>();
         long shifted;
         int shift = 0;
@@ -186,10 +190,10 @@ public class  BitBoardUtils {
         long enemy = 0;
         long guardMoves = board.getGuards() & (friendly);
 
-        if(board.getCurrentPlayer() == Player.BLUE){
+        if (board.getCurrentPlayer() == Player.BLUE) {
             friendly = board.getBlue();
             enemy = board.getRed();
-        }else {
+        } else {
             friendly = board.getRed();
             enemy = board.getBlue();
         }
@@ -198,43 +202,43 @@ public class  BitBoardUtils {
         fromBits &= ~(board.getGuards() & friendly);
         if (dir.equals("E")) {
             shift = height;
-            fromBits &= ~rightMasks[height-1];
-            shifted = (fromBits >>> shift)&fullMask;
-            guardMoves = (guardMoves >>> shift) & ~(board.getStack(0)&friendly);
+            fromBits &= ~rightMasks[height - 1];
+            shifted = (fromBits >>> shift) & fullMask;
+            guardMoves = (guardMoves >>> shift) & ~(board.getStack(0) & friendly);
         } else if (dir.equals("W")) {
             shift = height;
-            fromBits &= ~leftMasks[height-1];
-            guardMoves = (guardMoves << shift) & ~(board.getStack(0)&friendly);
-            shifted = (fromBits << shift)&fullMask;
+            fromBits &= ~leftMasks[height - 1];
+            guardMoves = (guardMoves << shift) & ~(board.getStack(0) & friendly);
+            shifted = (fromBits << shift) & fullMask;
 
         } else if (dir.equals("N")) {
             shift = 7 * height;
-            shifted = (fromBits << shift)&fullMask;
-            guardMoves = (guardMoves << shift) & ~(board.getStack(0)&friendly);
+            shifted = (fromBits << shift) & fullMask;
+            guardMoves = (guardMoves << shift) & ~(board.getStack(0) & friendly);
         } else { // South
             shift = 7 * height;
-            shifted = (fromBits >>> shift)&fullMask;
-            guardMoves = (guardMoves >>> shift) & ~(board.getStack(0)&friendly);
+            shifted = (fromBits >>> shift) & fullMask;
+            guardMoves = (guardMoves >>> shift) & ~(board.getStack(0) & friendly);
         }
         //extract from -> to sequences from shifted Bitboard
         //shifted ohne züge bei denen der eigene Guard das Ziel ist
-        shifted = (shifted ^ (board.getGuards()&friendly) & shifted);
+        shifted = (shifted ^ (board.getGuards() & friendly) & shifted);
         //shifted mit legalen zügen für den Guard
         shifted |= guardMoves;
-        while (shifted != 0){
+        while (shifted != 0) {
             int to = Long.numberOfTrailingZeros(shifted);
             int from = 0;
-            if(dir == "S" || dir == "E"){
+            if (dir == "S" || dir == "E") {
                 from = to + shift;
-            }else {
+            } else {
                 from = to - shift;
             }
             MovePair move = new MovePair(from, to, height);
             //Checking for jumping violations and out of bounds violations
-            if(from >= 0 && from < 49 ) { //&& moveDoesntJump(move, board)
+            if (from >= 0 && from < 49) { //&& moveDoesntJump(move, board)
                 moves.add(move);
             }
-            shifted &= shifted -1; //niedrigstes Bit löschen
+            shifted &= shifted - 1; //niedrigstes Bit löschen
         }
 
         return moves;
@@ -265,7 +269,7 @@ public class  BitBoardUtils {
                             int index = y * BOARD_SIZE + x1;
                             mask |= 1L << index;
                         }
-                        height = yEnd - (yStart-1);
+                        height = yEnd - (yStart - 1);
                     }
 
                     // Horizontal
@@ -277,7 +281,7 @@ public class  BitBoardUtils {
                             int index = y1 * BOARD_SIZE + x;
                             mask |= 1L << index;
                         }
-                        height = xEnd - (xStart-1);
+                        height = xEnd - (xStart - 1);
 
                     }
 
@@ -288,9 +292,10 @@ public class  BitBoardUtils {
     }
 
 
-    private boolean moveDoesntJump(MovePair move, Board board){
+    private boolean moveDoesntJump(MovePair move, Board board) {
         return (board.getStack(0) ^ pathMaskMap.get(move) & board.getStack(0)) == board.getStack(0);
     }
+
     public static void printBitboard(long bitboard) {
         final int BOARD_SIZE = 7;
         System.out.println("Bitboard-Darstellung:");
@@ -306,9 +311,6 @@ public class  BitBoardUtils {
     }
 
 
-
-
-
     /**
      * Hilfsklasse um Züge besser speichern zu können
      */
@@ -319,10 +321,11 @@ public class  BitBoardUtils {
 
         /**
          * Konstruktor der Klasse MovePair
+         *
          * @param from int-Repräsentation des Start-Feldes eines Zuges
-         * @param to int-Repräsentation des End-Feldes eines Zuges
+         * @param to   int-Repräsentation des End-Feldes eines Zuges
          */
-        public MovePair(int from, int to, int height){
+        public MovePair(int from, int to, int height) {
             this.from = from;
             this.to = to;
             this.height = height;
@@ -342,6 +345,7 @@ public class  BitBoardUtils {
 
         /**
          * Methode um MovePairs miteinander zu vergleichen
+         *
          * @param o anderes MovePair, mit dem dieses vergleichen werden soll
          * @return Boolscher Wert der angibt ob die beiden MovePairs die Instanzvariablen der beiden MovePairs gleich sind
          */
@@ -360,17 +364,17 @@ public class  BitBoardUtils {
             return result;
         }
 
-        public Move toMove(){
-            int fromCol = 6- (this.from % BOARD_SIZE);
-            int fromRow = 6-(this.from / BOARD_SIZE);
-            int toCol = 6-(this.to % BOARD_SIZE);
-            int toRow = 6-(this.to / BOARD_SIZE);
+        public Move toMove() {
+            int fromCol = 6 - (this.from % BOARD_SIZE);
+            int fromRow = 6 - (this.from / BOARD_SIZE);
+            int toCol = 6 - (this.to % BOARD_SIZE);
+            int toRow = 6 - (this.to / BOARD_SIZE);
             int moveHeight = this.height;
 
             return new Move(fromRow, fromCol, toRow, toCol, moveHeight);
         }
 
-        public String toString(){
+        public String toString() {
             return ("" + from + ", " + to);
         }
     }

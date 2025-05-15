@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
-/** Utility class – never instantiated. */
+/**
+ * Utility class – never instantiated.
+ */
 public final class GuardTowersMoveGenerator {
 
     private static final int BOARD_SIZE = 7;                // 7 × 7 board
@@ -9,7 +11,8 @@ public final class GuardTowersMoveGenerator {
             {-1, 0}, {1, 0}, {0, -1}, {0, 1}
     };
 
-    private GuardTowersMoveGenerator() { }                  // prevent instantiation
+    private GuardTowersMoveGenerator() {
+    }                  // prevent instantiation
 
     /**
      * Generate every pseudo-legal move for the side indicated by {@code forRed}.
