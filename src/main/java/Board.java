@@ -5,6 +5,8 @@ public class Board {
     private long guards;
     private long blue;
     private long red;
+    // Stacks indicate the minimum of how many pieces a tower contains
+    // a Tower with three pieces has "1" entries in Stacks 0,1,2 and "0" entries in all Stacks above
     private long[] stacks = {0L, 0L, 0L, 0L, 0L, 0L, 0L};
     private Player currentPlayer;
 
@@ -148,37 +150,37 @@ public class Board {
     }
 
     public long getStack(int i) {
-        return stacks[i];
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Board) || o == null) {
-            return false;
+            return stacks[i];
         }
-        Boolean guardsEqual = this.guards == ((Board) o).getGuards();
-        Boolean blueEqual = this.blue == ((Board) o).getBlue();
-        Boolean redEqual = this.red == ((Board) o).getRed();
-        Boolean currentPlayerEqual = this.currentPlayer == ((Board) o).getCurrentPlayer();
-        Boolean stacksEqual = true;
-        for (int i = 0; i < 7; i++) {
-            stacksEqual = stacksEqual && this.stacks[i] == ((Board) o).getStack(i);
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof Board) || o == null) {
+                return false;
+            }
+            Boolean guardsEqual = this.guards == ((Board) o).getGuards();
+            Boolean blueEqual = this.blue == ((Board) o).getBlue();
+            Boolean redEqual = this.red == ((Board) o).getRed();
+            Boolean currentPlayerEqual = this.currentPlayer == ((Board) o).getCurrentPlayer();
+            Boolean stacksEqual = true;
+            for (int i = 0; i < 7; i++) {
+                stacksEqual = stacksEqual && this.stacks[i] == ((Board) o).getStack(i);
+            }
+            return guardsEqual && blueEqual && redEqual && currentPlayerEqual && stacksEqual;
         }
-        return guardsEqual && blueEqual && redEqual && currentPlayerEqual && stacksEqual;
-    }
 
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(this.blue, this.red, this.guards);
-        result = 31 * result + Arrays.hashCode(this.stacks);
-        return result;
-    }
+        @Override
+        public int hashCode() {
+            int result = Objects.hash(this.blue, this.red, this.guards);
+            result = 31 * result + Arrays.hashCode(this.stacks);
+            return result;
+        }
 
 
-    public void printBoard() {
-        final int BOARD_SIZE = 7;
-        System.out.println("Aktueller Spielstand:");
+        public void printBoard() {
+            final int BOARD_SIZE = 7;
+            System.out.println("Aktueller Spielstand:");
 
         for (int i = 48; i >= 0; i--) {
             String symbol = "__";
@@ -217,6 +219,31 @@ public class Board {
                 System.out.println();
             }
         }
+    }
 
+    /**
+     *
+     * @param board from which the number of pieces should be calculated
+     * @param player for which the number of pieces should be calculated
+     * @return
+     */
+    public int numPieces(Player player){
+        int numPiece = 0;
+        long playerMask = 0;
+        if(player == Player.RED){
+            playerMask = this.red;
+        }else if(player == Player.BLUE){
+            playerMask = this.blue;
+        }
+
+        for (int i = 0; i < 7; i++){
+            long colorStackI = stacks[i] & playerMask;
+            for (int j = 0; j < 49; j++){
+                if (((colorStackI >>> j) & 1L) != 0){
+                    numPiece += 1;
+                }
+            }
+        }
+        return numPiece;
     }
 }
