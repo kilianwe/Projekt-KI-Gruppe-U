@@ -188,8 +188,6 @@ public class BitBoardUtils {
         int shift = 0;
         long friendly = 0;
         long enemy = 0;
-        long guardMoves = board.getGuards() & (friendly);
-
         if (board.getCurrentPlayer() == Player.BLUE) {
             friendly = board.getBlue();
             enemy = board.getRed();
@@ -197,6 +195,9 @@ public class BitBoardUtils {
             friendly = board.getRed();
             enemy = board.getBlue();
         }
+        long guardMoves = board.getGuards() & (friendly);
+
+
 
         //check Direction and shift by required amount
         fromBits &= ~(board.getGuards() & friendly);
@@ -235,7 +236,7 @@ public class BitBoardUtils {
             }
             MovePair move = new MovePair(from, to, height);
             //Checking for jumping violations and out of bounds violations
-            if (from >= 0 && from < 49) { //&& moveDoesntJump(move, board)
+            if (from >= 0 && from < 49 && moveDoesntJump(move, board)) { //&& moveDoesntJump(move, board)
                 moves.add(move);
             }
             shifted &= shifted - 1; //niedrigstes Bit löschen
@@ -293,6 +294,7 @@ public class BitBoardUtils {
 
 
     private boolean moveDoesntJump(MovePair move, Board board) {
+        if (pathMaskMap.get(move) == null){return false;}
         return (board.getStack(0) ^ pathMaskMap.get(move) & board.getStack(0)) == board.getStack(0);
     }
 

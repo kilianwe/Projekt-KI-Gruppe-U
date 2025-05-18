@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc5f93d3-b357-43e1-b50f-07f7a9d0d7f9" name="Changes" comment="prettier formatting">
+    <list default="true" id="bc5f93d3-b357-43e1-b50f-07f7a9d0d7f9" name="Changes" comment="new move generator">
+      <change afterPath="$PROJECT_DIR$/src/test/java/BoardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BitBoardUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BitBoardUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FenUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FenUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/MoveGeneratorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/MoveGeneratorTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +22,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -82,7 +85,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.MoveGeneratorTest.moveGeneratorTest">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Projekt-KI-Gruppe-U" />
@@ -90,8 +93,30 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="BoardTest.boardFromFenTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Projekt-KI-Gruppe-U" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="BoardTest" />
+      <option name="METHOD_NAME" value="boardFromFenTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MoveGeneratorTest.moveGeneratorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Projekt-KI-Gruppe-U" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="MoveGeneratorTest" />
+      <option name="METHOD_NAME" value="moveGeneratorTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MoveGeneratorTest.moveGeneratorTest" />
+        <item itemvalue="JUnit.BoardTest.boardFromFenTest" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -134,6 +159,7 @@
       <workItem from="1746220856018" duration="22000" />
       <workItem from="1746872107856" duration="1189000" />
       <workItem from="1747322386437" duration="299000" />
+      <workItem from="1747551035571" duration="11351000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented basic classes">
       <option name="closed" value="true" />
@@ -198,5 +224,31 @@
     <MESSAGE value="new move generator" />
     <MESSAGE value="prettier formatting" />
     <option name="LAST_COMMIT_MESSAGE" value="prettier formatting" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/BoardTest.java</url>
+          <line>11</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/MoveGeneratorTest.java</url>
+          <line>68</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Board" memberName="currentPlayer" />
+      </pinned-members>
+    </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="JUnit">
+        <watch expression="generatedMoves" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
