@@ -36,9 +36,9 @@ public final class BitBoardUtils {
         boolean maximizingPlayer;
 
         if(board.getCurrentPlayer() == Player.BLUE) {
-            maximizingPlayer = true;
-        }else {
             maximizingPlayer = false;
+        }else {
+            maximizingPlayer = true;
         }
 
         MovePair bestMove = null;
