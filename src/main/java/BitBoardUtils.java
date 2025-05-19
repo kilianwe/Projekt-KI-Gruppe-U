@@ -29,9 +29,37 @@ public final class BitBoardUtils {
     }
 
     public MovePair pickMove(List<MovePair> moves, Board board) {
-        int randomNum = (int) (Math.random() * moves.size());
-        return moves.get(randomNum);
+        BitBoardUtils utils = new BitBoardUtils();
+        List<MovePair> legalMoves = utils.generateAllLegalMoves(board);
+        boolean maximizingPlayer;
+
+        if(board.getCurrentPlayer() == Player.BLUE) {
+            maximizingPlayer = true;
+        }else {
+            maximizingPlayer = false;
+        }
+
+        MovePair bestMove = null;
+        int bestValue = maximizingPlayer ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+
+        for (BitBoardUtils.MovePair move : legalMoves) {
+            Board newBoard = BitBoardUtils.makeMove(move, board.copy());
+
+            int eval = minimaxAlphaBeta(newBoard, !maximizingPlayer,
+                    Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+            if (maximizingPlayer && eval > bestValue) {
+                bestValue = eval;
+                bestMove = move;
+            } else if (!maximizingPlayer && eval < bestValue) {
+                bestValue = eval;
+                bestMove = move;
+            }
+        }
+
+        return bestMove;
     }
+
 
     /**
      * Method to check if the Player who has just made a move has won the game.
