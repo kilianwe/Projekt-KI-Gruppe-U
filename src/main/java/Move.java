@@ -24,8 +24,8 @@ public class Move {
     }
 
     public String toAlgebraic() {
-        return "" + (char) ('a' + fromCol) + (7 - fromRow)
-                + (char) ('a' + toCol) + (7 - toRow);
+        return "" + (char) ('A' + fromCol) + (7 - fromRow) + "-"
+                + (char) ('A' + toCol) + (7 - toRow) + "-" + moveHeight;
     }
 
     @Override
