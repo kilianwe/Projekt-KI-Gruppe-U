@@ -204,31 +204,35 @@ public class BitBoardUtils {
         if (dir.equals("E")) {
             shift = height;
             fromBits &= ~rightMasks[height - 1];
-            shifted = (fromBits >>> shift) & fullMask;
-            guardMoves = (guardMoves >>> shift) & ~(board.getStack(0) & friendly);
+            shifted = (fromBits >>> shift) & fullMask ;
+            guardMoves = (guardMoves >>> shift) & ~(board.getStack(0) & friendly) & fullMask;
         } else if (dir.equals("W")) {
             shift = height;
             fromBits &= ~leftMasks[height - 1];
-            guardMoves = (guardMoves << shift) & ~(board.getStack(0) & friendly);
-            shifted = (fromBits << shift) & fullMask;
+            guardMoves = (guardMoves << shift) & ~(board.getStack(0) & friendly) & fullMask;
+            shifted = (fromBits << shift) & fullMask ;
 
         } else if (dir.equals("N")) {
             shift = 7 * height;
-            shifted = (fromBits << shift) & fullMask;
-            guardMoves = (guardMoves << shift) & ~(board.getStack(0) & friendly);
+            shifted = (fromBits << shift) & fullMask ;
+            guardMoves = (guardMoves << shift) & ~(board.getStack(0) & friendly) & fullMask;
         } else { // South
             shift = 7 * height;
-            shifted = (fromBits >>> shift) & fullMask;
-            guardMoves = (guardMoves >>> shift) & ~(board.getStack(0) & friendly);
+            shifted = (fromBits >>> shift) & fullMask ;
+            guardMoves = (guardMoves >>> shift) & ~(board.getStack(0) & friendly) & fullMask;
         }
-        //extract from -> to sequences from shifted Bitboard
         //shifted ohne züge bei denen der eigene Guard das Ziel ist
-        shifted = (shifted ^ (board.getGuards() & friendly) & shifted);
+        shifted = (shifted & ~(board.getGuards() & friendly));
+        //shifted ohne züge bei denen höhere Türme geschlagen werden
+        if(height < 7){
+            shifted &= ~(board.getStack(height) & enemy);
+        }
         //shifted mit legalen zügen für den Guard
-        if(shift == 1){
+        if(height == 1){
             shifted |= guardMoves;
         }
-                while (shifted != 0) {
+        //extract from -> to sequences from shifted Bitboard
+        while (shifted != 0) {
             int to = Long.numberOfTrailingZeros(shifted);
             int from = 0;
             if (dir == "S" || dir == "E") {

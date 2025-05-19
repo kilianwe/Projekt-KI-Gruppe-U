@@ -194,6 +194,7 @@ public class MoveGeneratorTest {
                 "G3-F3-1",
                 "G3-G4-1"
         );
+        board.printBoard();
         List<Move> actual = parseMoves(actualMoves);
         assertTrue(generatedMoves.containsAll(actual) &&
                 actual.containsAll(generatedMoves));
