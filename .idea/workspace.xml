@@ -5,16 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc5f93d3-b357-43e1-b50f-07f7a9d0d7f9" name="Changes" comment="new move generator">
-      <change afterPath="$PROJECT_DIR$/src/test/java/MinimaxTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BitBoardUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BitBoardUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BitBoardUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BitBoardUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/MinimaxTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/MinimaxTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Client$GameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Client$GameState.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +86,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.MinimaxTest.minimaxAlphaBetaTest">
+  <component name="RunManager" selected="JUnit.MinimaxTest.minimaxTest">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Client" />
       <module name="Projekt-KI-Gruppe-U" />
@@ -147,8 +143,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.MinimaxTest.minimaxAlphaBetaTest" />
         <item itemvalue="JUnit.MinimaxTest.minimaxTest" />
+        <item itemvalue="JUnit.MinimaxTest.minimaxAlphaBetaTest" />
         <item itemvalue="Application.Client" />
         <item itemvalue="JUnit.MakeMoveTest.makeMoveTestBeatGuard" />
         <item itemvalue="JUnit.MakeMoveTest.makeMoveTestBeatStack" />

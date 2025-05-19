@@ -389,4 +389,83 @@ public final class BitBoardUtils {
             return ("" + from + ", " + to);
         }
     }
+
+    private static int evaluate(Board board){
+        return board.numPieces(Player.BLUE) - board.numPieces(Player.RED);
+    }
+
+    static int minimax(Board board, boolean maximizingPlayer) {
+        BitBoardUtils utils = new BitBoardUtils();
+
+        Player previousPlayer;
+        if(board.getCurrentPlayer() == Player.BLUE){
+            previousPlayer = Player.RED;
+        }else {
+            previousPlayer = Player.BLUE;
+        }
+
+        if (BitBoardUtils.checkplayerWon(board, previousPlayer)) {
+            board.printBoard();
+            return evaluate(board);
+        }
+
+        if (maximizingPlayer) {
+            int maxEval = Integer.MIN_VALUE;
+            for (BitBoardUtils.MovePair move : utils.generateAllLegalMoves(board)) {
+                Board newBoard = BitBoardUtils.makeMove(move,board);
+                int eval = minimax(newBoard, false);
+                maxEval = Math.max(maxEval, eval);
+            }
+            return maxEval;
+        } else {
+            int minEval = Integer.MAX_VALUE;
+            for (BitBoardUtils.MovePair move : utils.generateAllLegalMoves(board)) {
+                Board newBoard = BitBoardUtils.makeMove(move,board);
+                int eval = minimax(newBoard, true);
+                minEval = Math.min(minEval, eval);
+            }
+            return minEval;
+        }
+    }
+
+    static int minimaxAlphaBeta(Board board, boolean maximizingPlayer, int alpha, int beta) {
+        BitBoardUtils utils = new BitBoardUtils();
+
+        Player previousPlayer;
+        if(board.getCurrentPlayer() == Player.BLUE){
+            previousPlayer = Player.RED;
+        }else {
+            previousPlayer = Player.BLUE;
+        }
+
+        if (BitBoardUtils.checkplayerWon(board, previousPlayer)) {
+            return evaluate(board);
+        }
+
+        if (maximizingPlayer) {
+            int maxEval = Integer.MIN_VALUE;
+            for (BitBoardUtils.MovePair move : utils.generateAllLegalMoves(board)) {
+                Board newBoard = BitBoardUtils.makeMove(move, board);
+                int eval = minimaxAlphaBeta(newBoard, false, alpha, beta);
+                maxEval = Math.max(maxEval, eval);
+                alpha = Math.max(alpha, eval);
+                if (beta <= alpha) {
+                    break; //PRUNE
+                }
+            }
+            return maxEval;
+        } else {
+            int minEval = Integer.MAX_VALUE;
+            for (BitBoardUtils.MovePair move : utils.generateAllLegalMoves(board)) {
+                Board newBoard = BitBoardUtils.makeMove(move, board);
+                int eval = minimaxAlphaBeta(newBoard, true, alpha, beta);
+                minEval = Math.min(minEval, eval);
+                beta = Math.min(beta, eval);
+                if (beta <= alpha) {
+                    break; //PRUNE
+                }
+            }
+            return minEval;
+        }
+    }
 }
