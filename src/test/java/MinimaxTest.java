@@ -10,7 +10,12 @@ public class MinimaxTest {
         Board board = new Board("3RG3/7/7/7/4b11b1/4r4r11/3BG1b11 b");
         BitBoardUtils utils = new BitBoardUtils();
         AtomicInteger stateCounter = new AtomicInteger();
-        System.out.println(utils.minimax(board,false, System.currentTimeMillis(), 120000, stateCounter));
+        long start = System.currentTimeMillis();
+        System.out.println(utils.minimax(board,false, start, 120000, stateCounter));
+        long duration = System.currentTimeMillis() - start;
+        System.out.println("Minimax beendet:");
+        System.out.println("Dauer: " + duration + " ms");
+        System.out.println("Bewertete Zustände: " + stateCounter.get());
     }
 
     @Test

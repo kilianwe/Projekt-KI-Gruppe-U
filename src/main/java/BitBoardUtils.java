@@ -427,16 +427,12 @@ public final class BitBoardUtils {
     static int minimax(Board board, boolean maximizingPlayer, long startTime, long timeLimitMs, AtomicInteger stateCounter) {
         BitBoardUtils utils = new BitBoardUtils();
 
-        //Laufzeit ausgeben
-        System.out.println("Laufzeit");
-        System.out.println(System.currentTimeMillis() - startTime);
-        System.out.println("Untersuchte Zustände");
-        // Zähler erhöhen und ausgeben
-        System.out.println(stateCounter.incrementAndGet());;
 
-        // Gewinner prüfen
+
+        // Prüfe Gewinn
         Player previousPlayer = board.getCurrentPlayer() == Player.BLUE ? Player.RED : Player.BLUE;
         if (BitBoardUtils.checkplayerWon(board, previousPlayer)) {
+            stateCounter.incrementAndGet();  // Nur bewertete Zustände zählen
             return evaluate(board);
         }
 
@@ -446,9 +442,6 @@ public final class BitBoardUtils {
                 Board newBoard = BitBoardUtils.makeMove(move, board.copy());
                 int eval = minimax(newBoard, false, startTime, timeLimitMs, stateCounter);
                 maxEval = Math.max(maxEval, eval);
-                if((System.currentTimeMillis() - startTime) > timeLimitMs){
-                    break;
-                }
             }
             return maxEval;
         } else {
@@ -457,9 +450,6 @@ public final class BitBoardUtils {
                 Board newBoard = BitBoardUtils.makeMove(move, board.copy());
                 int eval = minimax(newBoard, true, startTime, timeLimitMs, stateCounter);
                 minEval = Math.min(minEval, eval);
-                if((System.currentTimeMillis() - startTime) > timeLimitMs){
-                    break;
-                }
             }
             return minEval;
         }
