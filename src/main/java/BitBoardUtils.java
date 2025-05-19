@@ -46,7 +46,7 @@ public final class BitBoardUtils {
             Board newBoard = BitBoardUtils.makeMove(move, board.copy());
 
             int eval = minimaxAlphaBeta(newBoard, !maximizingPlayer,
-                    Integer.MIN_VALUE, Integer.MAX_VALUE);
+                    Integer.MIN_VALUE, Integer.MAX_VALUE, System.currentTimeMillis(), 1000);
 
             if (maximizingPlayer && eval > bestValue) {
                 bestValue = eval;
@@ -456,15 +456,17 @@ public final class BitBoardUtils {
         }
     }
 
-    static int minimaxAlphaBeta(Board board, boolean maximizingPlayer, int alpha, int beta) {
+    static int minimaxAlphaBeta(Board board, boolean maximizingPlayer, int alpha, int beta,long startTime, long timeLimitMs) {
         BitBoardUtils utils = new BitBoardUtils();
 
-        Player previousPlayer;
-        if(board.getCurrentPlayer() == Player.BLUE){
-            previousPlayer = Player.RED;
-        }else {
-            previousPlayer = Player.BLUE;
+
+        // Zeit prüfen
+        if (System.currentTimeMillis() - startTime > timeLimitMs) {
+            return evaluate(board);  // Zeit überschritten → Stellung bewerten
         }
+
+        // Wer war zuletzt am Zug?
+        Player previousPlayer = board.getCurrentPlayer() == Player.BLUE ? Player.RED : Player.BLUE;
 
         if (BitBoardUtils.checkplayerWon(board, previousPlayer)) {
             return evaluate(board);
@@ -474,7 +476,7 @@ public final class BitBoardUtils {
             int maxEval = Integer.MIN_VALUE;
             for (BitBoardUtils.MovePair move : utils.generateAllLegalMoves(board)) {
                 Board newBoard = BitBoardUtils.makeMove(move, board);
-                int eval = minimaxAlphaBeta(newBoard, false, alpha, beta);
+                int eval = minimaxAlphaBeta(newBoard, false, alpha, beta, startTime, timeLimitMs);
                 maxEval = Math.max(maxEval, eval);
                 alpha = Math.max(alpha, eval);
                 if (beta <= alpha) {
@@ -486,7 +488,7 @@ public final class BitBoardUtils {
             int minEval = Integer.MAX_VALUE;
             for (BitBoardUtils.MovePair move : utils.generateAllLegalMoves(board)) {
                 Board newBoard = BitBoardUtils.makeMove(move, board);
-                int eval = minimaxAlphaBeta(newBoard, true, alpha, beta);
+                int eval = minimaxAlphaBeta(newBoard, true, alpha, beta,startTime, timeLimitMs);
                 minEval = Math.min(minEval, eval);
                 beta = Math.min(beta, eval);
                 if (beta <= alpha) {
