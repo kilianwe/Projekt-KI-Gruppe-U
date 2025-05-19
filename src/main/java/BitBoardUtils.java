@@ -36,7 +36,7 @@ public class BitBoardUtils {
     /**
      * Method to check if the Player who has just made a move has won the game.
      *
-     * @param player
+     * @param
      * @return boolean
      */
     public boolean checkplayerWon(Board board) {

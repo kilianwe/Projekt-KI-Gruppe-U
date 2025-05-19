@@ -24,9 +24,9 @@ public final class FenUtils {
     /* ====================================================================== */
 
     /**
-     * Parse {@code fen}, build a {@link Board}, and run
+     * Parse{@code fen}, build a {@link Board}, and run
      *
-     * @param fen full FEN string (board + side to move)
+     * @param fen full FEN string (board+side to move)
      * @return list of legal moves for the side to move
      */
     public static List<BitBoardUtils.MovePair> generateLegalMovesFromFen(String fen) {
@@ -119,7 +119,7 @@ public final class FenUtils {
     /**
      * Convert the board part of a FEN string into a {@link Board}.
      */
-    private static Board parseBoard(String boardPart) {
+    public static Board parseBoard(String boardPart) {
         final int SIZE = BitBoardUtils.BOARD_SIZE;          // 7
 
         String[] ranks = boardPart.split("/");
