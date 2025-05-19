@@ -19,20 +19,19 @@ public class Client {
     /* ————————————————————————————————————  configuration  ———————————————————————————————————— */
 
     private static final String SERVER_HOST = "localhost";
-    private static final int    SERVER_PORT = 8000;
-    private static final int    BUFFER_SIZE = 4_096;     // matches server-side recv-buffer
+    private static final int SERVER_PORT = 8000;
+    private static final int BUFFER_SIZE = 4_096;     // matches server-side recv-buffer
 
     /* ————————————————————————————————————  network fields  ———————————————————————————————————— */
 
-    private Socket         socket;
-    private InputStream    in;
-    private OutputStream   out;
-    private final Gson     gson = new Gson();
+    private Socket socket;
+    private InputStream in;
+    private OutputStream out;
+    private final Gson gson = new Gson();
 
-    /* ————————————————————————————————————  game/engine fields  ———————————————————————————————————— */
+    /* ————————————————————————————————————game/engine fields———————————————————————————————————— */
 
-    private int            playerId;         // 0 = red, 1 = blue  (as defined by the server)
-    private char           myTurnToken;      // 'r' or 'b'
+    private char myTurnToken;      // 'r' or 'b'
     private final BitBoardUtils engine = new BitBoardUtils();
 
     /* =================================================================================================================
@@ -59,21 +58,25 @@ public class Client {
 
     private void connect() throws IOException {
         socket = new Socket(SERVER_HOST, SERVER_PORT);
-        in     = socket.getInputStream();
-        out    = socket.getOutputStream();
+        in = socket.getInputStream();
+        out = socket.getOutputStream();
 
         // The server sends a single byte: '0' or '1'
         int firstByte = in.read();
         if (firstByte == -1) throw new IOException("Server closed connection before sending player ID");
-        playerId     = firstByte - '0';
-        myTurnToken  = (playerId == 0) ? 'r' : 'b';
+        // 0 = red, 1 = blue (as defined by the server)
+        int playerId = firstByte - '0';
+        myTurnToken = (playerId == 0) ? 'r' : 'b';
 
         System.out.printf("Connected – I am player %d (%s)%n",
                 playerId, (myTurnToken == 'r' ? "RED" : "BLUE"));
     }
 
     private void close() {
-        try { if (socket != null) socket.close(); } catch (IOException ignored) {}
+        try {
+            if (socket != null) socket.close();
+        } catch (IOException ignored) {
+        }
     }
 
     /**
@@ -116,7 +119,7 @@ public class Client {
                 }
                 FenUtils.printBoard(state.board);
                 System.out.println("→ " + moveStr);
-                state = sendMove(moveStr);              // server responds with updated state
+                state = sendMove(moveStr);              // server responds with an updated state
 
             } else {
                 // poll politely while the opponent thinks
@@ -148,9 +151,10 @@ public class Client {
         return gson.fromJson(reply, GameState.class);
     }
 
-    static int evaluate(Board board) {
-        return board.numPieces(Player.BLUE) - board.numPieces(Player.RED);
+    private int evaluate(Board board){
+        return (-1) * board.numPieces(board.getCurrentPlayer()) + 1000 * (BitBoardUtils.checkplayerWon(board) ? 1:0);
     }
+
     /**
      * Builds a legal move for the current FEN and converts it into the server’s “A7-B7-1” format.
      */
@@ -170,93 +174,6 @@ public class Client {
             e.printStackTrace();
             return null;
         }
-    }
-
-    static int minimax(Board board, boolean maximizingPlayer) {
-        BitBoardUtils utils = new BitBoardUtils();
-
-        Player previousPlayer;
-        if(board.getCurrentPlayer() == Player.BLUE){
-            previousPlayer = Player.RED;
-        }else {
-            previousPlayer = Player.BLUE;
-        }
-
-        if (BitBoardUtils.checkplayerWon(board, previousPlayer)) {
-            board.printBoard();
-            return evaluate(board);
-        }
-
-        if (maximizingPlayer) {
-            int maxEval = Integer.MIN_VALUE;
-            for (BitBoardUtils.MovePair move : utils.generateAllLegalMoves(board)) {
-                Board newBoard = BitBoardUtils.makeMove(move,board);
-                int eval = minimax(newBoard, false);
-                maxEval = Math.max(maxEval, eval);
-            }
-            return maxEval;
-        } else {
-            int minEval = Integer.MAX_VALUE;
-            for (BitBoardUtils.MovePair move : utils.generateAllLegalMoves(board)) {
-                Board newBoard = BitBoardUtils.makeMove(move,board);
-                int eval = minimax(newBoard, true);
-                minEval = Math.min(minEval, eval);
-            }
-            return minEval;
-        }
-    }
-
-    static int minimaxAlphaBeta(Board board, boolean maximizingPlayer, int alpha, int beta) {
-        BitBoardUtils utils = new BitBoardUtils();
-
-        Player previousPlayer;
-        if(board.getCurrentPlayer() == Player.BLUE){
-            previousPlayer = Player.RED;
-        }else {
-            previousPlayer = Player.BLUE;
-        }
-
-        if (BitBoardUtils.checkplayerWon(board, previousPlayer)) {
-            return evaluate(board);
-        }
-
-        if (maximizingPlayer) {
-            int maxEval = Integer.MIN_VALUE;
-            for (BitBoardUtils.MovePair move : utils.generateAllLegalMoves(board)) {
-                Board newBoard = BitBoardUtils.makeMove(move, board);
-                int eval = minimaxAlphaBeta(newBoard, false, alpha, beta);
-                maxEval = Math.max(maxEval, eval);
-                alpha = Math.max(alpha, eval);
-                if (beta <= alpha) {
-                    break; //PRUNE
-                }
-            }
-            return maxEval;
-        } else {
-            int minEval = Integer.MAX_VALUE;
-            for (BitBoardUtils.MovePair move : utils.generateAllLegalMoves(board)) {
-                Board newBoard = BitBoardUtils.makeMove(move, board);
-                int eval = minimaxAlphaBeta(newBoard, true, alpha, beta);
-                minEval = Math.min(minEval, eval);
-                beta = Math.min(beta, eval);
-                if (beta <= alpha) {
-                    break; //PRUNE
-                }
-            }
-            return minEval;
-        }
-    }
-
-
-    /**
-     * Converts an internal {@link Move} into the server protocol “A7-B7-1”.
-     */
-    private static String moveToWireFormat(Move m) {
-        char fromFile = (char) ('A' + m.fromCol);
-        int  fromRank = 7 - m.fromRow;
-        char toFile   = (char) ('A' + m.toCol);
-        int  toRank   = 7 - m.toRow;
-        return "" + fromFile + fromRank + '-' + toFile + toRank + '-' + m.moveHeight;
     }
 
     /* =================================================================================================================
