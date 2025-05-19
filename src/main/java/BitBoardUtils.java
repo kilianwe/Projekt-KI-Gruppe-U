@@ -39,30 +39,30 @@ public final class BitBoardUtils {
      * @param
      * @return boolean
      */
-    public static boolean checkplayerWon(Board board) {
+    public static boolean checkplayerWon(Board board, Player player) {
         long playerMask = 0;
         long enemyCastle = 0;
         long enemyMask = 0;
-        if (board.getCurrentPlayer() == Player.BLUE) {
+        if (player == Player.BLUE) {
             playerMask = board.getBlue();
             enemyMask = board.getRed();
-            enemyCastle = 1L << 3;
-        } else if (board.getCurrentPlayer() == Player.RED) {
+            enemyCastle = 1L << 45;
+        } else if (player == Player.RED) {
             playerMask = board.getRed();
             enemyMask = board.getBlue();
-            enemyCastle = 1L << 45;
+            enemyCastle = 1L << 3;
         } else {
-            return false;
+            throw new RuntimeException("Wrong player input in checkplayerWon");
         }
 
-        if ((board.getGuards() & playerMask) == enemyCastle || (board.getGuards() & playerMask) == (board.getGuards() & enemyMask)) {
+        if ((board.getGuards() & playerMask) == enemyCastle || (board.getGuards() & enemyMask) == 0) {
             return true;
         }
         return false;
     }
 
 
-    public Board makeMove(MovePair move, Board board) {
+    public static Board makeMove(MovePair move, Board board) {
         long to = (1L << move.getTo());
 
         long from = (1L << move.getFrom());
@@ -78,7 +78,7 @@ public final class BitBoardUtils {
         }
 
 
-        Board returnBoard = board;
+        Board returnBoard = board.copy();
 
         //Delete "From" Position
         int n = move.getHeight();

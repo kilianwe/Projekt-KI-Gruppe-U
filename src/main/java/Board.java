@@ -246,4 +246,16 @@ public class Board {
         }
         return numPiece;
     }
+
+    public Board copy() {
+        Board b = new Board();
+        b.setBlue(this.blue);
+        b.setRed(this.red);
+        b.setGuards(this.guards);
+        long[] newStacks = new long[7];
+        for (int i = 0; i < 7; i++) {
+            newStacks[i] = this.stacks[i];
+        }
+        return b;
+    }
 }

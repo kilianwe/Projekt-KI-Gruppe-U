@@ -5,14 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc5f93d3-b357-43e1-b50f-07f7a9d0d7f9" name="Changes" comment="new move generator">
-      <change afterPath="$PROJECT_DIR$/src/test/java/MakeMoveTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/MinimaxTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BitBoardUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BitBoardUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BitBoardUtils$MovePair.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BitBoardUtils$MovePair.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/BitBoardUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BitBoardUtils.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Client$GameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Client$GameState.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,13 +90,10 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.MakeMoveTest.makeMoveTestBeatGuard">
-    <configuration name="MakeMoveTest.makeMoveTestAddTowers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.MinimaxTest.minimaxAlphaBetaTest">
+    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Client" />
       <module name="Projekt-KI-Gruppe-U" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="MakeMoveTest" />
-      <option name="METHOD_NAME" value="makeMoveTestAddTowers" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -119,39 +118,40 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MoveGeneratorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MinimaxTest.minimaxAlphaBetaTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Projekt-KI-Gruppe-U" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="MoveGeneratorTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="MinimaxTest" />
+      <option name="METHOD_NAME" value="minimaxAlphaBetaTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MoveGeneratorTest.moveGeneratorEndgameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MinimaxTest.minimaxTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Projekt-KI-Gruppe-U" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="MoveGeneratorTest" />
-      <option name="METHOD_NAME" value="moveGeneratorEndgameTest" />
+      <option name="MAIN_CLASS_NAME" value="MinimaxTest" />
+      <option name="METHOD_NAME" value="minimaxTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.MakeMoveTest.makeMoveTestAddTowers" />
+      <item itemvalue="Application.Client" />
       <item itemvalue="JUnit.MakeMoveTest.makeMoveTestBeatGuard" />
       <item itemvalue="JUnit.MakeMoveTest.makeMoveTestBeatStack" />
-      <item itemvalue="JUnit.MoveGeneratorTest.moveGeneratorEndgameTest" />
-      <item itemvalue="JUnit.MoveGeneratorTest" />
+      <item itemvalue="JUnit.MinimaxTest.minimaxAlphaBetaTest" />
+      <item itemvalue="JUnit.MinimaxTest.minimaxTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MinimaxTest.minimaxAlphaBetaTest" />
+        <item itemvalue="JUnit.MinimaxTest.minimaxTest" />
+        <item itemvalue="Application.Client" />
         <item itemvalue="JUnit.MakeMoveTest.makeMoveTestBeatGuard" />
         <item itemvalue="JUnit.MakeMoveTest.makeMoveTestBeatStack" />
-        <item itemvalue="JUnit.MoveGeneratorTest.moveGeneratorEndgameTest" />
-        <item itemvalue="JUnit.MakeMoveTest.makeMoveTestAddTowers" />
-        <item itemvalue="JUnit.MoveGeneratorTest" />
       </list>
     </recent_temporary>
   </component>
