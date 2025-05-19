@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BitBoardUtils {
+public final class BitBoardUtils {
     public static final int BOARD_SIZE = 7;
     private final Map<MovePair, Long> pathMaskMap = new HashMap<>();
     private long[] leftMasks = new long[BOARD_SIZE];
@@ -39,7 +39,7 @@ public class BitBoardUtils {
      * @param
      * @return boolean
      */
-    public boolean checkplayerWon(Board board) {
+    public static boolean checkplayerWon(Board board) {
         long playerMask = 0;
         long enemyCastle = 0;
         long enemyMask = 0;
@@ -134,9 +134,12 @@ public class BitBoardUtils {
 
 
         // update guard mask
-        if ((returnBoard.getGuards() | to) == returnBoard.getGuards() || (returnBoard.getGuards() | from) == returnBoard.getGuards()) {
+        if ((returnBoard.getGuards() | from) == returnBoard.getGuards()) {
             returnBoard.setGuards(returnBoard.getGuards() ^ from ^ to);
+        } else if ((returnBoard.getGuards() | to) == returnBoard.getGuards()) {
+            returnBoard.setGuards(returnBoard.getGuards() ^ to);
         }
+
         //update currentPlayer
         if (board.getCurrentPlayer() == Player.BLUE) {
             returnBoard.setCurrentPlayer(Player.RED);

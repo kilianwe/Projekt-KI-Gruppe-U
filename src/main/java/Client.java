@@ -148,6 +148,10 @@ public class Client {
         return gson.fromJson(reply, GameState.class);
     }
 
+    private int evaluate(Board board){
+        return (-1) * board.numPieces(board.getCurrentPlayer()) + 1000 * (BitBoardUtils.checkplayerWon(board) ? 1:0);
+    }
+
     /**
      * Builds a legal move for the current FEN and converts it into the server’s “A7-B7-1” format.
      */

@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc5f93d3-b357-43e1-b50f-07f7a9d0d7f9" name="Changes" comment="new move generator">
+      <change afterPath="$PROJECT_DIR$/src/test/java/MakeMoveTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BitBoardUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BitBoardUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/MoveGeneratorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/MoveGeneratorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BitBoardUtils$MovePair.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BitBoardUtils$MovePair.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BitBoardUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BitBoardUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Client$GameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Client$GameState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Client.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +88,37 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.MoveGeneratorTest">
+  <component name="RunManager" selected="JUnit.MakeMoveTest.makeMoveTestBeatGuard">
+    <configuration name="MakeMoveTest.makeMoveTestAddTowers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Projekt-KI-Gruppe-U" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="MakeMoveTest" />
+      <option name="METHOD_NAME" value="makeMoveTestAddTowers" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MakeMoveTest.makeMoveTestBeatGuard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Projekt-KI-Gruppe-U" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="MakeMoveTest" />
+      <option name="METHOD_NAME" value="makeMoveTestBeatGuard" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MakeMoveTest.makeMoveTestBeatStack" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Projekt-KI-Gruppe-U" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="MakeMoveTest" />
+      <option name="METHOD_NAME" value="makeMoveTestBeatStack" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MoveGeneratorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Projekt-KI-Gruppe-U" />
       <option name="PACKAGE_NAME" value="" />
@@ -103,50 +138,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MoveGeneratorTest.moveGeneratorJumpingTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Projekt-KI-Gruppe-U" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="MoveGeneratorTest" />
-      <option name="METHOD_NAME" value="moveGeneratorJumpingTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MoveGeneratorTest.moveGeneratorLateStartTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Projekt-KI-Gruppe-U" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="MoveGeneratorTest" />
-      <option name="METHOD_NAME" value="moveGeneratorLateStartTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MoveGeneratorTest.moveGeneratorMidgameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Projekt-KI-Gruppe-U" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="MoveGeneratorTest" />
-      <option name="METHOD_NAME" value="moveGeneratorMidgameTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
+      <item itemvalue="JUnit.MakeMoveTest.makeMoveTestAddTowers" />
+      <item itemvalue="JUnit.MakeMoveTest.makeMoveTestBeatGuard" />
+      <item itemvalue="JUnit.MakeMoveTest.makeMoveTestBeatStack" />
       <item itemvalue="JUnit.MoveGeneratorTest.moveGeneratorEndgameTest" />
       <item itemvalue="JUnit.MoveGeneratorTest" />
-      <item itemvalue="JUnit.MoveGeneratorTest.moveGeneratorJumpingTest" />
-      <item itemvalue="JUnit.MoveGeneratorTest.moveGeneratorLateStartTest" />
-      <item itemvalue="JUnit.MoveGeneratorTest.moveGeneratorMidgameTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.MoveGeneratorTest" />
+        <item itemvalue="JUnit.MakeMoveTest.makeMoveTestBeatGuard" />
+        <item itemvalue="JUnit.MakeMoveTest.makeMoveTestBeatStack" />
         <item itemvalue="JUnit.MoveGeneratorTest.moveGeneratorEndgameTest" />
-        <item itemvalue="JUnit.MoveGeneratorTest.moveGeneratorMidgameTest" />
-        <item itemvalue="JUnit.MoveGeneratorTest.moveGeneratorLateStartTest" />
-        <item itemvalue="JUnit.MoveGeneratorTest.moveGeneratorJumpingTest" />
+        <item itemvalue="JUnit.MakeMoveTest.makeMoveTestAddTowers" />
+        <item itemvalue="JUnit.MoveGeneratorTest" />
       </list>
     </recent_temporary>
   </component>
