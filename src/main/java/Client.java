@@ -161,7 +161,7 @@ public class Client {
 
             BitBoardUtils.MovePair choice = engine.pickMove(moves, board);
             Move m = choice.toMove();
-            return moveToWireFormat(m);
+            return m.toAlgebraic();
 
         } catch (Exception e) {                                 // any parsing / engine failure → no move
             e.printStackTrace();
