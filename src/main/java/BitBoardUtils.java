@@ -225,8 +225,10 @@ public class BitBoardUtils {
         //shifted ohne züge bei denen der eigene Guard das Ziel ist
         shifted = (shifted ^ (board.getGuards() & friendly) & shifted);
         //shifted mit legalen zügen für den Guard
-        shifted |= guardMoves;
-        while (shifted != 0) {
+        if(shift == 1){
+            shifted |= guardMoves;
+        }
+                while (shifted != 0) {
             int to = Long.numberOfTrailingZeros(shifted);
             int from = 0;
             if (dir == "S" || dir == "E") {
