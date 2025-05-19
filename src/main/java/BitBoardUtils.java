@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+
 
 public final class BitBoardUtils {
     public static final int BOARD_SIZE = 7;
@@ -419,38 +421,45 @@ public final class BitBoardUtils {
     }
 
     private static int evaluate(Board board){
-        return board.numPieces(Player.BLUE) - board.numPieces(Player.RED);
+        return board.numPieces(Player.RED) - board.numPieces(Player.BLUE);
     }
 
-    static int minimax(Board board, boolean maximizingPlayer) {
+    static int minimax(Board board, boolean maximizingPlayer, long startTime, long timeLimitMs, AtomicInteger stateCounter) {
         BitBoardUtils utils = new BitBoardUtils();
 
-        Player previousPlayer;
-        if(board.getCurrentPlayer() == Player.BLUE){
-            previousPlayer = Player.RED;
-        }else {
-            previousPlayer = Player.BLUE;
-        }
+        //Laufzeit ausgeben
+        System.out.println("Laufzeit");
+        System.out.println(System.currentTimeMillis() - startTime);
+        System.out.println("Untersuchte Zustände");
+        // Zähler erhöhen und ausgeben
+        System.out.println(stateCounter.incrementAndGet());;
 
+        // Gewinner prüfen
+        Player previousPlayer = board.getCurrentPlayer() == Player.BLUE ? Player.RED : Player.BLUE;
         if (BitBoardUtils.checkplayerWon(board, previousPlayer)) {
-            board.printBoard();
             return evaluate(board);
         }
 
         if (maximizingPlayer) {
             int maxEval = Integer.MIN_VALUE;
             for (BitBoardUtils.MovePair move : utils.generateAllLegalMoves(board)) {
-                Board newBoard = BitBoardUtils.makeMove(move,board);
-                int eval = minimax(newBoard, false);
+                Board newBoard = BitBoardUtils.makeMove(move, board.copy());
+                int eval = minimax(newBoard, false, startTime, timeLimitMs, stateCounter);
                 maxEval = Math.max(maxEval, eval);
+                if((System.currentTimeMillis() - startTime) > timeLimitMs){
+                    break;
+                }
             }
             return maxEval;
         } else {
             int minEval = Integer.MAX_VALUE;
             for (BitBoardUtils.MovePair move : utils.generateAllLegalMoves(board)) {
-                Board newBoard = BitBoardUtils.makeMove(move,board);
-                int eval = minimax(newBoard, true);
+                Board newBoard = BitBoardUtils.makeMove(move, board.copy());
+                int eval = minimax(newBoard, true, startTime, timeLimitMs, stateCounter);
                 minEval = Math.min(minEval, eval);
+                if((System.currentTimeMillis() - startTime) > timeLimitMs){
+                    break;
+                }
             }
             return minEval;
         }
@@ -458,12 +467,6 @@ public final class BitBoardUtils {
 
     static int minimaxAlphaBeta(Board board, boolean maximizingPlayer, int alpha, int beta,long startTime, long timeLimitMs) {
         BitBoardUtils utils = new BitBoardUtils();
-
-
-        // Zeit prüfen
-        if (System.currentTimeMillis() - startTime > timeLimitMs) {
-            return evaluate(board);  // Zeit überschritten → Stellung bewerten
-        }
 
         // Wer war zuletzt am Zug?
         Player previousPlayer = board.getCurrentPlayer() == Player.BLUE ? Player.RED : Player.BLUE;
@@ -479,7 +482,7 @@ public final class BitBoardUtils {
                 int eval = minimaxAlphaBeta(newBoard, false, alpha, beta, startTime, timeLimitMs);
                 maxEval = Math.max(maxEval, eval);
                 alpha = Math.max(alpha, eval);
-                if (beta <= alpha) {
+                if (beta <= alpha || (System.currentTimeMillis() - startTime) > timeLimitMs) {
                     break; //PRUNE
                 }
             }
@@ -491,7 +494,7 @@ public final class BitBoardUtils {
                 int eval = minimaxAlphaBeta(newBoard, true, alpha, beta,startTime, timeLimitMs);
                 minEval = Math.min(minEval, eval);
                 beta = Math.min(beta, eval);
-                if (beta <= alpha) {
+                if (beta <= alpha || (System.currentTimeMillis() - startTime) > timeLimitMs) {
                     break; //PRUNE
                 }
             }
