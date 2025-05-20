@@ -90,7 +90,6 @@ public final class BitBoardUtils {
         }
 
         if ((board.getGuards() & playerMask) == enemyCastle || (board.getGuards() & enemyMask) == 0) {
-            System.out.println("Player " + player + " won");
             return true;
         }
         return false;
@@ -528,7 +527,6 @@ public final class BitBoardUtils {
         Player previousPlayer = board.getCurrentPlayer() == Player.BLUE ? Player.RED : Player.BLUE;
         if (BitBoardUtils.checkplayerWon(board, previousPlayer) || depth == 0) {
             stateCounter.incrementAndGet();  // Nur bewertete Zustände zählen
-            board.printBoard();
             return evaluate(board);
         }
 
@@ -539,6 +537,7 @@ public final class BitBoardUtils {
                 int eval = minimax(newBoard, false, depth-1, stateCounter);
                 maxEval = Math.max(maxEval, eval);
             }
+            stateCounter.incrementAndGet();
             return maxEval;
         } else {
             int minEval = Integer.MAX_VALUE;
@@ -547,6 +546,7 @@ public final class BitBoardUtils {
                 int eval = minimax(newBoard, true, depth-1, stateCounter);
                 minEval = Math.min(minEval, eval);
             }
+            stateCounter.incrementAndGet();
             return minEval;
         }
     }
