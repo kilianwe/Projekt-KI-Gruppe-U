@@ -430,7 +430,7 @@ public final class BitBoardUtils {
         if (pathMaskMap.get(move) == null) {
             return false;
         }
-        return (board.getStack(0) ^ pathMaskMap.get(move) & board.getStack(0)) == board.getStack(0);
+        return (board.getStack(0) & pathMaskMap.get(move)) == 0;
     }
 
     public static void printBitboard(long bitboard) {
@@ -490,7 +490,7 @@ public final class BitBoardUtils {
         public boolean equals(Object o) {
             if (!(o instanceof MovePair)) return false;
             MovePair p = (MovePair) o;
-            return this.from == p.from && this.to == p.to;
+            return this.from == p.from && this.to == p.to && this.height==p.height;
         }
 
         @Override
