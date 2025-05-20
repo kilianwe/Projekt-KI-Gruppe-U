@@ -17,7 +17,7 @@ public class MakeMoveTest {
         Board after = new Board("3RG3/7/7/7/4r11b1/4r3r11/3BG1b11 b");
         BitBoardUtils utils = new BitBoardUtils();
         BitBoardUtils.MovePair move = new BitBoardUtils.MovePair(9,16,1);
-        assertEquals(utils.makeMove(move, before), after);
+        assertTrue(BitBoardUtils.makeMove(move, before).equals(after));
     }
 
     @Test
