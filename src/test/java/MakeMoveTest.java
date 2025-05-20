@@ -31,5 +31,21 @@ public class MakeMoveTest {
 
     }
 
+    @Test
+    void makeMoveTestGuardBeatsGuard(){
+        Board before = new Board("7/7/7/7/7/7/5RGBG b");
+        Board after = new Board("7/7/7/7/7/7/5BG1 r");
+        BitBoardUtils utils = new BitBoardUtils();
+        BitBoardUtils.MovePair move = new BitBoardUtils.MovePair(0,1,1);
+        Board outcome = utils.makeMove(move, before);
+        assertEquals(outcome, after);
+    }
+
+    @Test
+    void testCheckPlayerWon(){
+        Board before = new Board("7/7/7/7/7/7/5BG1 r");
+        assertTrue(BitBoardUtils.checkplayerWon(before, Player.BLUE));
+    }
+
 
 }
