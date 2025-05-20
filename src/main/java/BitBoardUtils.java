@@ -35,20 +35,22 @@ public final class BitBoardUtils {
         List<MovePair> legalMoves = utils.generateAllLegalMoves(board);
         boolean maximizingPlayer;
 
-        if(board.getCurrentPlayer() == Player.BLUE) {
+        if (board.getCurrentPlayer() == Player.BLUE) {
             maximizingPlayer = false;
-        }else {
+        } else {
             maximizingPlayer = true;
         }
 
         MovePair bestMove = null;
         int bestValue = maximizingPlayer ? Integer.MIN_VALUE : Integer.MAX_VALUE;
 
+        // start global timer only ONCE
+        long startTime = System.currentTimeMillis();
+
         for (BitBoardUtils.MovePair move : legalMoves) {
             Board newBoard = BitBoardUtils.makeMove(move, board.copy());
 
-            int eval = minimaxAlphaBeta(newBoard, !maximizingPlayer,
-                    Integer.MIN_VALUE, Integer.MAX_VALUE, System.currentTimeMillis(), 1000);
+            int eval = minimaxAlphaBeta(newBoard, !maximizingPlayer, Integer.MIN_VALUE, Integer.MAX_VALUE, startTime, 1000);
 
             if (maximizingPlayer && eval > bestValue) {
                 bestValue = eval;
@@ -57,8 +59,10 @@ public final class BitBoardUtils {
                 bestValue = eval;
                 bestMove = move;
             }
+            // stop looping if we ran out of time
+            if (System.currentTimeMillis() - startTime > 1000) break;
         }
-
+        System.out.println("Time: " + (System.currentTimeMillis() - startTime) + "ms");
         return bestMove;
     }
 
@@ -231,37 +235,36 @@ public final class BitBoardUtils {
         long guardMoves = board.getGuards() & (friendly);
 
 
-
         //check Direction and shift by required amount
         fromBits &= ~(board.getGuards() & friendly);
         if (dir.equals("E")) {
             shift = height;
             fromBits &= ~rightMasks[height - 1];
-            shifted = (fromBits >>> shift) & fullMask ;
+            shifted = (fromBits >>> shift) & fullMask;
             guardMoves = (guardMoves >>> shift) & ~(board.getStack(0) & friendly) & fullMask;
         } else if (dir.equals("W")) {
             shift = height;
             fromBits &= ~leftMasks[height - 1];
             guardMoves = (guardMoves << shift) & ~(board.getStack(0) & friendly) & fullMask;
-            shifted = (fromBits << shift) & fullMask ;
+            shifted = (fromBits << shift) & fullMask;
 
         } else if (dir.equals("N")) {
             shift = 7 * height;
-            shifted = (fromBits << shift) & fullMask ;
+            shifted = (fromBits << shift) & fullMask;
             guardMoves = (guardMoves << shift) & ~(board.getStack(0) & friendly) & fullMask;
         } else { // South
             shift = 7 * height;
-            shifted = (fromBits >>> shift) & fullMask ;
+            shifted = (fromBits >>> shift) & fullMask;
             guardMoves = (guardMoves >>> shift) & ~(board.getStack(0) & friendly) & fullMask;
         }
         //shifted ohne züge bei denen der eigene Guard das Ziel ist
         shifted = (shifted & ~(board.getGuards() & friendly));
         //shifted ohne züge bei denen höhere Türme geschlagen werden
-        if(height < 7){
+        if (height < 7) {
             shifted &= ~(board.getStack(height) & enemy);
         }
         //shifted mit legalen zügen für den Guard
-        if(height == 1){
+        if (height == 1) {
             shifted |= guardMoves;
         }
         //extract from -> to sequences from shifted Bitboard
@@ -315,8 +318,7 @@ public final class BitBoardUtils {
                     // Horizontal
                     if (y1 == y2) {
                         int xStart = Math.min(x1, x2) + 1;
-                        int
-                                xEnd = Math.max(x1, x2);
+                        int xEnd = Math.max(x1, x2);
                         for (int x = xStart; x < xEnd; x++) {
                             int index = y1 * BOARD_SIZE + x;
                             mask |= 1L << index;
@@ -333,7 +335,9 @@ public final class BitBoardUtils {
 
 
     private boolean moveDoesntJump(MovePair move, Board board) {
-        if (pathMaskMap.get(move) == null){return false;}
+        if (pathMaskMap.get(move) == null) {
+            return false;
+        }
         return (board.getStack(0) ^ pathMaskMap.get(move) & board.getStack(0)) == board.getStack(0);
     }
 
@@ -420,13 +424,12 @@ public final class BitBoardUtils {
         }
     }
 
-    private static int evaluate(Board board){
+    private static int evaluate(Board board) {
         return board.numPieces(Player.RED) - board.numPieces(Player.BLUE);
     }
 
     static int minimax(Board board, boolean maximizingPlayer, long startTime, long timeLimitMs, AtomicInteger stateCounter) {
         BitBoardUtils utils = new BitBoardUtils();
-
 
 
         // Prüfe Gewinn
@@ -455,7 +458,11 @@ public final class BitBoardUtils {
         }
     }
 
-    static int minimaxAlphaBeta(Board board, boolean maximizingPlayer, int alpha, int beta,long startTime, long timeLimitMs) {
+    static int minimaxAlphaBeta(Board board, boolean maximizingPlayer, int alpha, int beta, long startTime, long timeLimitMs) {
+        // hard time-out guard – stops the recursion instantly
+        if (System.currentTimeMillis() - startTime > timeLimitMs) {
+            return evaluate(board);         // or some “best so far” value
+        }
         BitBoardUtils utils = new BitBoardUtils();
 
         // Wer war zuletzt am Zug?
@@ -481,7 +488,7 @@ public final class BitBoardUtils {
             int minEval = Integer.MAX_VALUE;
             for (BitBoardUtils.MovePair move : utils.generateAllLegalMoves(board)) {
                 Board newBoard = BitBoardUtils.makeMove(move, board);
-                int eval = minimaxAlphaBeta(newBoard, true, alpha, beta,startTime, timeLimitMs);
+                int eval = minimaxAlphaBeta(newBoard, true, alpha, beta, startTime, timeLimitMs);
                 minEval = Math.min(minEval, eval);
                 beta = Math.min(beta, eval);
                 if (beta <= alpha || (System.currentTimeMillis() - startTime) > timeLimitMs) {
