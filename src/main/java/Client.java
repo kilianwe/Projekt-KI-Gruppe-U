@@ -117,8 +117,9 @@ public class Client {
                     System.err.println("No legal moves! Terminating.");
                     break;
                 }
+                System.out.println("This is the current baord:");
                 FenUtils.printBoard(state.board);
-                System.out.println("→ " + moveStr);
+                System.out.println("I play: " + moveStr);
                 state = sendMove(moveStr);              // server responds with an updated state
 
             } else {

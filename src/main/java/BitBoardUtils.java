@@ -6,6 +6,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 
 public final class BitBoardUtils {
+    private static final BitBoardUtils UTILS = new BitBoardUtils();
+    private static final int MAX_PLIES = 64;   // depth guard
     public static final int BOARD_SIZE = 7;
     private final Map<MovePair, Long> pathMaskMap = new HashMap<>();
     private long[] leftMasks = new long[BOARD_SIZE];
@@ -50,7 +52,7 @@ public final class BitBoardUtils {
         for (BitBoardUtils.MovePair move : legalMoves) {
             Board newBoard = BitBoardUtils.makeMove(move, board.copy());
 
-            int eval = minimaxAlphaBeta(newBoard, !maximizingPlayer, Integer.MIN_VALUE, Integer.MAX_VALUE, startTime, 1000);
+            int eval = minimaxAlphaBeta(newBoard, 1000);
 
             if (maximizingPlayer && eval > bestValue) {
                 bestValue = eval;
@@ -60,7 +62,7 @@ public final class BitBoardUtils {
                 bestMove = move;
             }
             // stop looping if we ran out of time
-            if (System.currentTimeMillis() - startTime > 1000) break;
+            if (System.currentTimeMillis() - startTime > 500) break;
         }
         System.out.println("Time: " + (System.currentTimeMillis() - startTime) + "ms");
         return bestMove;
@@ -184,97 +186,97 @@ public final class BitBoardUtils {
     }
 
     /**
-    public static Board makeMove(MovePair move, Board board) {
-        long to = (1L << move.getTo());
+     public static Board makeMove(MovePair move, Board board) {
+     long to = (1L << move.getTo());
 
-        long from = (1L << move.getFrom());
-        long friendly = 0;
-        long enemy = 0;
+     long from = (1L << move.getFrom());
+     long friendly = 0;
+     long enemy = 0;
 
-        if (board.getCurrentPlayer() == Player.BLUE) {
-            friendly = board.getBlue();
-            enemy = board.getRed();
-        } else {
-            friendly = board.getRed();
-            enemy = board.getBlue();
-        }
-
-
-        Board returnBoard = board.copy();
-
-        // Löschung der "from"-Position aus Stacks
-        int n = move.getHeight();
-        for (int i = 6; i >= 0; i--) {
-            if ((returnBoard.getStack(i) & from) != 0) {
-                returnBoard.setStack(i, returnBoard.getStack(i) ^ from);
-                n--;
-            }
-            if (n == 0) break;
-        }
-        //update friendly to include the removal of the "from" position
-        if (board.getCurrentPlayer() == Player.BLUE) {
-            returnBoard.setBlue(returnBoard.getBlue() & returnBoard.getStack(0));
-        } else {
-            returnBoard.setRed(returnBoard.getRed() & returnBoard.getStack(0));
-        }
+     if (board.getCurrentPlayer() == Player.BLUE) {
+     friendly = board.getBlue();
+     enemy = board.getRed();
+     } else {
+     friendly = board.getRed();
+     enemy = board.getBlue();
+     }
 
 
-        //delete beaten enemy Stack
-        for (int i = 0; i < 7; i++) {
-            returnBoard.setStack(i, (returnBoard.getStack(i) & enemy & ~to) | (friendly & returnBoard.getStack(i)));
-        }
-        //update enemy to include the removal of beaten stack
-        if (board.getCurrentPlayer() == Player.BLUE) {
-            returnBoard.setRed(enemy & returnBoard.getStack(0));
-        } else {
-            returnBoard.setBlue((enemy & returnBoard.getStack(0)));
-        }
+     Board returnBoard = board.copy();
+
+     // Löschung der "from"-Position aus Stacks
+     int n = move.getHeight();
+     for (int i = 6; i >= 0; i--) {
+     if ((returnBoard.getStack(i) & from) != 0) {
+     returnBoard.setStack(i, returnBoard.getStack(i) ^ from);
+     n--;
+     }
+     if (n == 0) break;
+     }
+     //update friendly to include the removal of the "from" position
+     if (board.getCurrentPlayer() == Player.BLUE) {
+     returnBoard.setBlue(returnBoard.getBlue() & returnBoard.getStack(0));
+     } else {
+     returnBoard.setRed(returnBoard.getRed() & returnBoard.getStack(0));
+     }
 
 
-        //increase Stacks which player who moved owns
-        n = move.getHeight();
-        for (int i = 0; i < 7; i++) {
-            //If there is no bit present at the "to" position the | operation will lead to that bit being added which means the height of the Stack at that position will be increased by 1
-            if ((returnBoard.getStack(i) | to) != returnBoard.getStack(i)) {
-                returnBoard.setStack(i, returnBoard.getStack(i) | to);
-                n--;
-            }
-            if (n == 0) {
-                break;
-            }
-        }
-
-        //update friendly to include the increased Stack
-        if (board.getCurrentPlayer() == Player.BLUE) {
-            returnBoard.setBlue(returnBoard.getStack(0) ^ returnBoard.getRed());
-        } else {
-            returnBoard.setRed(returnBoard.getStack(0) ^ returnBoard.getBlue());
-        }
+     //delete beaten enemy Stack
+     for (int i = 0; i < 7; i++) {
+     returnBoard.setStack(i, (returnBoard.getStack(i) & enemy & ~to) | (friendly & returnBoard.getStack(i)));
+     }
+     //update enemy to include the removal of beaten stack
+     if (board.getCurrentPlayer() == Player.BLUE) {
+     returnBoard.setRed(enemy & returnBoard.getStack(0));
+     } else {
+     returnBoard.setBlue((enemy & returnBoard.getStack(0)));
+     }
 
 
-        long guards = returnBoard.getGuards();
-        if ((guards & from) != 0) {
-            guards = (guards ^ from) | to; // Guard wird bewegt
-        } else if (((enemy & to) != 0) && ((guards & to) != 0)) {
-            guards = guards ^ to; // Gegnerischer Guard wird geschlagen
-        }
-        returnBoard.setGuards(guards);
+     //increase Stacks which player who moved owns
+     n = move.getHeight();
+     for (int i = 0; i < 7; i++) {
+     //If there is no bit present at the "to" position the | operation will lead to that bit being added which means the height of the Stack at that position will be increased by 1
+     if ((returnBoard.getStack(i) | to) != returnBoard.getStack(i)) {
+     returnBoard.setStack(i, returnBoard.getStack(i) | to);
+     n--;
+     }
+     if (n == 0) {
+     break;
+     }
+     }
 
-        //update currentPlayer
-        if (board.getCurrentPlayer() == Player.BLUE) {
-            returnBoard.setCurrentPlayer(Player.RED);
-        } else if (board.getCurrentPlayer() == Player.RED) {
-            returnBoard.setCurrentPlayer(Player.BLUE);
-        }
-        if((returnBoard.getGuards() & ~((1L << 49) -1)) == 0){
-            System.out.println("FEHLER");
-            board.printBoard();
-            returnBoard.printBoard();
-            System.out.println(move);
-        }
-        return returnBoard;
-    }
-    */
+     //update friendly to include the increased Stack
+     if (board.getCurrentPlayer() == Player.BLUE) {
+     returnBoard.setBlue(returnBoard.getStack(0) ^ returnBoard.getRed());
+     } else {
+     returnBoard.setRed(returnBoard.getStack(0) ^ returnBoard.getBlue());
+     }
+
+
+     long guards = returnBoard.getGuards();
+     if ((guards & from) != 0) {
+     guards = (guards ^ from) | to; // Guard wird bewegt
+     } else if (((enemy & to) != 0) && ((guards & to) != 0)) {
+     guards = guards ^ to; // Gegnerischer Guard wird geschlagen
+     }
+     returnBoard.setGuards(guards);
+
+     //update currentPlayer
+     if (board.getCurrentPlayer() == Player.BLUE) {
+     returnBoard.setCurrentPlayer(Player.RED);
+     } else if (board.getCurrentPlayer() == Player.RED) {
+     returnBoard.setCurrentPlayer(Player.BLUE);
+     }
+     if((returnBoard.getGuards() & ~((1L << 49) -1)) == 0){
+     System.out.println("FEHLER");
+     board.printBoard();
+     returnBoard.printBoard();
+     System.out.println(move);
+     }
+     return returnBoard;
+     }
+     */
 
     /**
      * Generates all Legal Moves in all Directions for a specific player. Boundary Conflicts and jumping violations are handled in generateMovesInDirection.
@@ -332,13 +334,13 @@ public final class BitBoardUtils {
         if (dir.equals("E")) {
             shift = height;
             fromBits &= ~rightMasks[height - 1];
-            shifted = (fromBits >>> shift) & fullMask ;
-            guardMoves = ((guardMoves & ~rightMasks[height-1]) >>> shift) & ~(board.getStack(0) & friendly) & fullMask;
+            shifted = (fromBits >>> shift) & fullMask;
+            guardMoves = ((guardMoves & ~rightMasks[height - 1]) >>> shift) & ~(board.getStack(0) & friendly) & fullMask;
         } else if (dir.equals("W")) {
             shift = height;
             fromBits &= ~leftMasks[height - 1];
-            guardMoves = ((guardMoves & ~leftMasks[height-1]) << shift) & ~(board.getStack(0) & friendly) & fullMask;
-            shifted = (fromBits << shift) & fullMask ;
+            guardMoves = ((guardMoves & ~leftMasks[height - 1]) << shift) & ~(board.getStack(0) & friendly) & fullMask;
+            shifted = (fromBits << shift) & fullMask;
 
         } else if (dir.equals("N")) {
             shift = 7 * height;
@@ -490,7 +492,7 @@ public final class BitBoardUtils {
         public boolean equals(Object o) {
             if (!(o instanceof MovePair)) return false;
             MovePair p = (MovePair) o;
-            return this.from == p.from && this.to == p.to && this.height==p.height;
+            return this.from == p.from && this.to == p.to && this.height == p.height;
         }
 
         @Override
@@ -534,7 +536,7 @@ public final class BitBoardUtils {
             int maxEval = Integer.MIN_VALUE;
             for (BitBoardUtils.MovePair move : utils.generateAllLegalMoves(board)) {
                 Board newBoard = BitBoardUtils.makeMove(move, board.copy());
-                int eval = minimax(newBoard, false, depth-1, stateCounter);
+                int eval = minimax(newBoard, false, depth - 1, stateCounter);
                 maxEval = Math.max(maxEval, eval);
             }
             stateCounter.incrementAndGet();
@@ -543,7 +545,7 @@ public final class BitBoardUtils {
             int minEval = Integer.MAX_VALUE;
             for (BitBoardUtils.MovePair move : utils.generateAllLegalMoves(board)) {
                 Board newBoard = BitBoardUtils.makeMove(move, board.copy());
-                int eval = minimax(newBoard, true, depth-1, stateCounter);
+                int eval = minimax(newBoard, true, depth - 1, stateCounter);
                 minEval = Math.min(minEval, eval);
             }
             stateCounter.incrementAndGet();
@@ -551,44 +553,68 @@ public final class BitBoardUtils {
         }
     }
 
-    static int minimaxAlphaBeta(Board board, boolean maximizingPlayer, int alpha, int beta, long startTime, long timeLimitMs) {
-        // hard time-out guard – stops the recursion instantly
-        if (System.currentTimeMillis() - startTime > timeLimitMs) {
-            return evaluate(board);         // or some “best so far” value
-        }
-        BitBoardUtils utils = new BitBoardUtils();
+    public static int minimaxAlphaBeta(Board root,
+                                       long timeLimitMs) {              // convenience
+        long start = System.currentTimeMillis();
+        return minimaxAlphaBeta(root,                                     /* board    */
+                true,                                     /* max ply  */
+                Integer.MIN_VALUE, Integer.MAX_VALUE,     /* α, β     */
+                start, timeLimitMs,                       /* timing   */
+                0);                                       /* ply = 0  */
+    }
 
-        // Wer war zuletzt am Zug?
-        Player previousPlayer = board.getCurrentPlayer() == Player.BLUE ? Player.RED : Player.BLUE;
+    // -----------------------------------------------------------------------------
+//  Core recursive search
+// -----------------------------------------------------------------------------
+    private static int minimaxAlphaBeta(Board board,
+                                        boolean maximizingPlayer,
+                                        int alpha, int beta,
+                                        long startTime, long timeLimitMs,
+                                        int ply) {
 
-        if (BitBoardUtils.checkplayerWon(board, previousPlayer)) {
+        /* ---------- hard stops: out of time OR too deep ------------------------ */
+        if (System.currentTimeMillis() - startTime > timeLimitMs || ply >= MAX_PLIES)
             return evaluate(board);
-        }
 
+        /* ---------- game-ending positions -------------------------------------- */
+        Player prev = (board.getCurrentPlayer() == Player.RED) ? Player.BLUE
+                : Player.RED;
+        if (UTILS.checkplayerWon(board, prev))          // last mover just won
+            return evaluate(board);
+
+        /* ---------- enumerate legal moves -------------------------------------- */
+        List<MovePair> moves = UTILS.generateAllLegalMoves(board);
+        if (moves.isEmpty())                            // stalemate or no moves
+            return evaluate(board);
+
+        /* ---------- standard alpha–beta recursion ------------------------------ */
         if (maximizingPlayer) {
-            int maxEval = Integer.MIN_VALUE;
-            for (BitBoardUtils.MovePair move : utils.generateAllLegalMoves(board)) {
-                Board newBoard = BitBoardUtils.makeMove(move, board);
-                int eval = minimaxAlphaBeta(newBoard, false, alpha, beta, startTime, timeLimitMs);
-                maxEval = Math.max(maxEval, eval);
-                alpha = Math.max(alpha, eval);
-                if (beta <= alpha || (System.currentTimeMillis() - startTime) > timeLimitMs) {
-                    break; //PRUNE
-                }
+            int best = Integer.MIN_VALUE;
+            for (MovePair m : moves) {
+                Board child = UTILS.makeMove(m, board.copy());           // safe copy
+                int score = minimaxAlphaBeta(child, false,
+                        alpha, beta,
+                        startTime, timeLimitMs,
+                        ply + 1);
+                best = Math.max(best, score);
+                alpha = Math.max(alpha, best);
+                if (alpha >= beta) break;                                // cut-off
             }
-            return maxEval;
-        } else {
-            int minEval = Integer.MAX_VALUE;
-            for (BitBoardUtils.MovePair move : utils.generateAllLegalMoves(board)) {
-                Board newBoard = BitBoardUtils.makeMove(move, board);
-                int eval = minimaxAlphaBeta(newBoard, true, alpha, beta, startTime, timeLimitMs);
-                minEval = Math.min(minEval, eval);
-                beta = Math.min(beta, eval);
-                if (beta <= alpha || (System.currentTimeMillis() - startTime) > timeLimitMs) {
-                    break; //PRUNE
-                }
+            return best;
+        } else { // minimizing player
+            int best = Integer.MAX_VALUE;
+            for (MovePair m : moves) {
+                Board child = UTILS.makeMove(m, board.copy());
+                int score = minimaxAlphaBeta(child, true,
+                        alpha, beta,
+                        startTime, timeLimitMs,
+                        ply + 1);
+                best = Math.min(best, score);
+                beta = Math.min(beta, best);
+                if (beta <= alpha) break;
             }
-            return minEval;
+            return best;
         }
     }
+
 }
