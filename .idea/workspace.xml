@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc5f93d3-b357-43e1-b50f-07f7a9d0d7f9" name="Changes" comment="new move generator">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BitBoardUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BitBoardUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/MakeMoveTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/MakeMoveTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/MinimaxTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/MinimaxTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BitBoardUtils$MovePair.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BitBoardUtils$MovePair.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,40 +85,38 @@
   }
 }</component>
   <component name="RunManager" selected="JUnit.MinimaxTest.minimaxTest">
-    <configuration name="MakeMoveTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Client" />
       <module name="Projekt-KI-Gruppe-U" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="MakeMoveTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MakeMoveTest.makeMoveTestAddTowers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MakeMoveTest.makeMoveTestBeatGuard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Projekt-KI-Gruppe-U" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="MakeMoveTest" />
-      <option name="METHOD_NAME" value="makeMoveTestAddTowers" />
+      <option name="METHOD_NAME" value="makeMoveTestBeatGuard" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MakeMoveTest.makeMoveTestGuardBeatsGuard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MakeMoveTest.makeMoveTestBeatStack" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Projekt-KI-Gruppe-U" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="MakeMoveTest" />
-      <option name="METHOD_NAME" value="makeMoveTestGuardBeatsGuard" />
+      <option name="METHOD_NAME" value="makeMoveTestBeatStack" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MakeMoveTest.testCheckPlayerWon" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MinimaxTest.minimaxAlphaBetaTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Projekt-KI-Gruppe-U" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="MakeMoveTest" />
-      <option name="METHOD_NAME" value="testCheckPlayerWon" />
+      <option name="MAIN_CLASS_NAME" value="MinimaxTest" />
+      <option name="METHOD_NAME" value="minimaxAlphaBetaTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -135,19 +133,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.MakeMoveTest" />
-      <item itemvalue="JUnit.MakeMoveTest.makeMoveTestAddTowers" />
-      <item itemvalue="JUnit.MakeMoveTest.makeMoveTestGuardBeatsGuard" />
-      <item itemvalue="JUnit.MakeMoveTest.testCheckPlayerWon" />
+      <item itemvalue="Application.Client" />
+      <item itemvalue="JUnit.MakeMoveTest.makeMoveTestBeatGuard" />
+      <item itemvalue="JUnit.MakeMoveTest.makeMoveTestBeatStack" />
+      <item itemvalue="JUnit.MinimaxTest.minimaxAlphaBetaTest" />
       <item itemvalue="JUnit.MinimaxTest.minimaxTest" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.MinimaxTest.minimaxTest" />
-        <item itemvalue="JUnit.MakeMoveTest" />
-        <item itemvalue="JUnit.MakeMoveTest.makeMoveTestAddTowers" />
-        <item itemvalue="JUnit.MakeMoveTest.testCheckPlayerWon" />
-        <item itemvalue="JUnit.MakeMoveTest.makeMoveTestGuardBeatsGuard" />
+        <item itemvalue="JUnit.MinimaxTest.minimaxAlphaBetaTest" />
+        <item itemvalue="Application.Client" />
+        <item itemvalue="JUnit.MakeMoveTest.makeMoveTestBeatGuard" />
+        <item itemvalue="JUnit.MakeMoveTest.makeMoveTestBeatStack" />
       </list>
     </recent_temporary>
   </component>
@@ -191,7 +189,6 @@
       <workItem from="1747322386437" duration="299000" />
       <workItem from="1747551035571" duration="11680000" />
       <workItem from="1747594717937" duration="2505000" />
-      <workItem from="1747725228369" duration="11185000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented basic classes">
       <option name="closed" value="true" />
@@ -279,11 +276,6 @@
           <url>file://$PROJECT_DIR$/src/test/java/MoveGeneratorTest.java</url>
           <line>198</line>
           <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/MakeMoveTest.java</url>
-          <line>29</line>
-          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
