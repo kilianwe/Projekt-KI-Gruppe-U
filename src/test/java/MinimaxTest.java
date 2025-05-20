@@ -11,7 +11,7 @@ public class MinimaxTest {
         BitBoardUtils utils = new BitBoardUtils();
         AtomicInteger stateCounter = new AtomicInteger();
         long start = System.currentTimeMillis();
-        System.out.println(BitBoardUtils.minimax(board,false, 1, stateCounter));
+        System.out.println(BitBoardUtils.minimax(board,false, 3, stateCounter));
         long duration = System.currentTimeMillis() - start;
         System.out.println("Minimax beendet:");
         System.out.println("Dauer: " + duration + " ms");
