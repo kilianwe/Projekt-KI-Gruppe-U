@@ -522,39 +522,42 @@ public final class BitBoardUtils {
         return board.numPieces(Player.RED) - board.numPieces(Player.BLUE);
     }
 
-    static int minimax(Board board, boolean maximizingPlayer, int depth, AtomicInteger stateCounter) {
-        BitBoardUtils utils = new BitBoardUtils();
+    private static int minimax(Board board, int depth, boolean maximizingPlayer) {
 
-        // Prüfe Gewinn
-        Player previousPlayer = board.getCurrentPlayer() == Player.BLUE ? Player.RED : Player.BLUE;
-        if (BitBoardUtils.checkplayerWon(board, previousPlayer) || depth == 0) {
-            stateCounter.incrementAndGet();  // Nur bewertete Zustände zählen
+        /* ---------- hard stop: search horizon reached ------------------------- */
+        if (depth == 0) return evaluate(board);
+
+        /* ---------- game end check (the side that just moved) ------------------ */
+        Player prev = (board.getCurrentPlayer() == Player.RED) ? Player.BLUE : Player.RED;
+        if (UTILS.checkplayerWon(board, prev)) return evaluate(board);
+
+        /* ---------- generate legal moves --------------------------------------- */
+        List<MovePair> moves = UTILS.generateAllLegalMoves(board);
+        if (moves.isEmpty())                           // stalemate or no moves
             return evaluate(board);
-        }
 
+        /* ---------- recursive descent ------------------------------------------ */
         if (maximizingPlayer) {
-            int maxEval = Integer.MIN_VALUE;
-            for (BitBoardUtils.MovePair move : utils.generateAllLegalMoves(board)) {
-                Board newBoard = BitBoardUtils.makeMove(move, board.copy());
-                int eval = minimax(newBoard, false, depth - 1, stateCounter);
-                maxEval = Math.max(maxEval, eval);
+            int best = Integer.MIN_VALUE;
+            for (MovePair m : moves) {
+                Board child = UTILS.makeMove(m, board.copy());  // safe copy
+                int score = minimax(child, depth - 1, false);
+                best = Math.max(best, score);
             }
-            stateCounter.incrementAndGet();
-            return maxEval;
-        } else {
-            int minEval = Integer.MAX_VALUE;
-            for (BitBoardUtils.MovePair move : utils.generateAllLegalMoves(board)) {
-                Board newBoard = BitBoardUtils.makeMove(move, board.copy());
-                int eval = minimax(newBoard, true, depth - 1, stateCounter);
-                minEval = Math.min(minEval, eval);
+            return best;
+        } else {                                       // minimizing player
+            int best = Integer.MAX_VALUE;
+            for (MovePair m : moves) {
+                Board child = UTILS.makeMove(m, board.copy());
+                int score = minimax(child, depth - 1, true);
+                best = Math.min(best, score);
             }
-            stateCounter.incrementAndGet();
-            return minEval;
+            return best;
         }
     }
 
-    public static int minimaxAlphaBeta(Board root,
-                                       long timeLimitMs) {              // convenience
+
+    public static int minimaxAlphaBeta(Board root, long timeLimitMs) {              // convenience
         long start = System.currentTimeMillis();
         return minimaxAlphaBeta(root,                                     /* board    */
                 true,                                     /* max ply  */
@@ -566,19 +569,13 @@ public final class BitBoardUtils {
     // -----------------------------------------------------------------------------
 //  Core recursive search
 // -----------------------------------------------------------------------------
-    private static int minimaxAlphaBeta(Board board,
-                                        boolean maximizingPlayer,
-                                        int alpha, int beta,
-                                        long startTime, long timeLimitMs,
-                                        int ply) {
+    private static int minimaxAlphaBeta(Board board, boolean maximizingPlayer, int alpha, int beta, long startTime, long timeLimitMs, int ply) {
 
         /* ---------- hard stops: out of time OR too deep ------------------------ */
-        if (System.currentTimeMillis() - startTime > timeLimitMs || ply >= MAX_PLIES)
-            return evaluate(board);
+        if (System.currentTimeMillis() - startTime > timeLimitMs || ply >= MAX_PLIES) return evaluate(board);
 
         /* ---------- game-ending positions -------------------------------------- */
-        Player prev = (board.getCurrentPlayer() == Player.RED) ? Player.BLUE
-                : Player.RED;
+        Player prev = (board.getCurrentPlayer() == Player.RED) ? Player.BLUE : Player.RED;
         if (UTILS.checkplayerWon(board, prev))          // last mover just won
             return evaluate(board);
 
@@ -592,10 +589,7 @@ public final class BitBoardUtils {
             int best = Integer.MIN_VALUE;
             for (MovePair m : moves) {
                 Board child = UTILS.makeMove(m, board.copy());           // safe copy
-                int score = minimaxAlphaBeta(child, false,
-                        alpha, beta,
-                        startTime, timeLimitMs,
-                        ply + 1);
+                int score = minimaxAlphaBeta(child, false, alpha, beta, startTime, timeLimitMs, ply + 1);
                 best = Math.max(best, score);
                 alpha = Math.max(alpha, best);
                 if (alpha >= beta) break;                                // cut-off
@@ -605,10 +599,7 @@ public final class BitBoardUtils {
             int best = Integer.MAX_VALUE;
             for (MovePair m : moves) {
                 Board child = UTILS.makeMove(m, board.copy());
-                int score = minimaxAlphaBeta(child, true,
-                        alpha, beta,
-                        startTime, timeLimitMs,
-                        ply + 1);
+                int score = minimaxAlphaBeta(child, true, alpha, beta, startTime, timeLimitMs, ply + 1);
                 best = Math.min(best, score);
                 beta = Math.min(beta, best);
                 if (beta <= alpha) break;

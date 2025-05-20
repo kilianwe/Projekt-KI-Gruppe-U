@@ -4,16 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc5f93d3-b357-43e1-b50f-07f7a9d0d7f9" name="Changes" comment="fixed the boards copy method">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="bc5f93d3-b357-43e1-b50f-07f7a9d0d7f9" name="Changes" comment="made the minimax method more compute efficient">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BitBoardUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BitBoardUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BitBoardUtils$MovePair.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BitBoardUtils$MovePair.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BitBoardUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BitBoardUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Client$GameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Client$GameState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/MinimaxTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/MinimaxTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,7 +198,8 @@
       <workItem from="1747594717937" duration="2505000" />
       <workItem from="1747747371140" duration="1129000" />
       <workItem from="1747751298014" duration="361000" />
-      <workItem from="1747752008674" duration="1176000" />
+      <workItem from="1747752008674" duration="1950000" />
+      <workItem from="1747753986242" duration="616000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented basic classes">
       <option name="closed" value="true" />
@@ -256,7 +249,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747746126695</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="made the minimax method more compute efficient">
+      <option name="closed" value="true" />
+      <created>1747753425708</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1747753425708</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,7 +280,8 @@
     <MESSAGE value="new move generator" />
     <MESSAGE value="prettier formatting" />
     <MESSAGE value="improved time management" />
-    <option name="LAST_COMMIT_MESSAGE" value="improved time management" />
+    <MESSAGE value="made the minimax method more compute efficient" />
+    <option name="LAST_COMMIT_MESSAGE" value="made the minimax method more compute efficient" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
