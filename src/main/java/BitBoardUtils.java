@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public final class BitBoardUtils {
     private static final BitBoardUtils UTILS = new BitBoardUtils();
-    private static final int MAX_PLIES = 64;   // depth guard
+    private static final int MAX_PLIES = 5;   // depth guard
     public static final int BOARD_SIZE = 7;
     private final Map<MovePair, Long> pathMaskMap = new HashMap<>();
     private long[] leftMasks = new long[BOARD_SIZE];
@@ -32,10 +32,11 @@ public final class BitBoardUtils {
         }
     }
 
-    public MovePair pickMove(List<MovePair> moves, Board board) {
+    public MovePair pickMove(Board board) {
         BitBoardUtils utils = new BitBoardUtils();
         List<MovePair> legalMoves = utils.generateAllLegalMoves(board);
         boolean maximizingPlayer;
+        AtomicInteger stateCounter = new AtomicInteger();
 
         if (board.getCurrentPlayer() == Player.BLUE) {
             maximizingPlayer = false;
@@ -52,7 +53,7 @@ public final class BitBoardUtils {
         for (BitBoardUtils.MovePair move : legalMoves) {
             Board newBoard = BitBoardUtils.makeMove(move, board.copy());
 
-            int eval = minimaxAlphaBeta(newBoard, 1000);
+            int eval = minimaxAlphaBeta(newBoard, 1000, stateCounter);
 
             if (maximizingPlayer && eval > bestValue) {
                 bestValue = eval;
@@ -65,6 +66,7 @@ public final class BitBoardUtils {
             if (System.currentTimeMillis() - startTime > 500) break;
         }
         System.out.println("Time: " + (System.currentTimeMillis() - startTime) + "ms");
+        System.out.println("Bewertete Zustände:" + stateCounter.get());
         return bestMove;
     }
 
@@ -518,18 +520,24 @@ public final class BitBoardUtils {
         }
     }
 
-    private static int evaluate(Board board) {
+    public static int evaluate(Board board) {
         return board.numPieces(Player.RED) - board.numPieces(Player.BLUE);
     }
 
-    private static int minimax(Board board, int depth, boolean maximizingPlayer) {
+    public static int minimax(Board board, int depth, boolean maximizingPlayer, AtomicInteger stateCounter) {
 
         /* ---------- hard stop: search horizon reached ------------------------- */
-        if (depth == 0) return evaluate(board);
+        if (depth == 0){
+            stateCounter.incrementAndGet();
+            return evaluate(board);
+        }
 
         /* ---------- game end check (the side that just moved) ------------------ */
         Player prev = (board.getCurrentPlayer() == Player.RED) ? Player.BLUE : Player.RED;
-        if (UTILS.checkplayerWon(board, prev)) return evaluate(board);
+        if (UTILS.checkplayerWon(board, prev)){
+            stateCounter.incrementAndGet();
+            return evaluate(board);
+        }
 
         /* ---------- generate legal moves --------------------------------------- */
         List<MovePair> moves = UTILS.generateAllLegalMoves(board);
@@ -541,69 +549,81 @@ public final class BitBoardUtils {
             int best = Integer.MIN_VALUE;
             for (MovePair m : moves) {
                 Board child = UTILS.makeMove(m, board.copy());  // safe copy
-                int score = minimax(child, depth - 1, false);
+                int score = minimax(child, depth - 1, false, stateCounter);
                 best = Math.max(best, score);
             }
+            stateCounter.incrementAndGet();
             return best;
         } else {                                       // minimizing player
             int best = Integer.MAX_VALUE;
             for (MovePair m : moves) {
                 Board child = UTILS.makeMove(m, board.copy());
-                int score = minimax(child, depth - 1, true);
+                int score = minimax(child, depth - 1, true, stateCounter);
                 best = Math.min(best, score);
             }
+            stateCounter.incrementAndGet();
             return best;
         }
     }
 
 
-    public static int minimaxAlphaBeta(Board root, long timeLimitMs) {              // convenience
+    public static int minimaxAlphaBeta(Board root, long timeLimitMs, AtomicInteger stateCounter) {              // convenience
         long start = System.currentTimeMillis();
+        boolean maximizingPlayer = (root.getCurrentPlayer() == Player.RED) ? true : false;
         return minimaxAlphaBeta(root,                                     /* board    */
-                true,                                     /* max ply  */
+                maximizingPlayer,                                     /* max ply  */
                 Integer.MIN_VALUE, Integer.MAX_VALUE,     /* α, β     */
                 start, timeLimitMs,                       /* timing   */
-                0);                                       /* ply = 0  */
+                0,
+                stateCounter);                                       /* ply = 0  */
     }
 
     // -----------------------------------------------------------------------------
 //  Core recursive search
 // -----------------------------------------------------------------------------
-    private static int minimaxAlphaBeta(Board board, boolean maximizingPlayer, int alpha, int beta, long startTime, long timeLimitMs, int ply) {
+    private static int minimaxAlphaBeta(Board board, boolean maximizingPlayer, int alpha, int beta, long startTime, long timeLimitMs, int ply, AtomicInteger stateCounter) {
 
         /* ---------- hard stops: out of time OR too deep ------------------------ */
-        if (System.currentTimeMillis() - startTime > timeLimitMs || ply >= MAX_PLIES) return evaluate(board);
+        if (System.currentTimeMillis() - startTime > timeLimitMs || ply >= MAX_PLIES){
+            stateCounter.incrementAndGet();
+            return evaluate(board);
+        }
 
         /* ---------- game-ending positions -------------------------------------- */
         Player prev = (board.getCurrentPlayer() == Player.RED) ? Player.BLUE : Player.RED;
-        if (UTILS.checkplayerWon(board, prev))          // last mover just won
+        if (UTILS.checkplayerWon(board, prev)) {          // last mover just won
+            stateCounter.incrementAndGet();
             return evaluate(board);
+        }
 
         /* ---------- enumerate legal moves -------------------------------------- */
         List<MovePair> moves = UTILS.generateAllLegalMoves(board);
-        if (moves.isEmpty())                            // stalemate or no moves
+        if (moves.isEmpty()) {                            // stalemate or no moves
+            stateCounter.incrementAndGet();
             return evaluate(board);
-
+        }
         /* ---------- standard alpha–beta recursion ------------------------------ */
         if (maximizingPlayer) {
             int best = Integer.MIN_VALUE;
             for (MovePair m : moves) {
                 Board child = UTILS.makeMove(m, board.copy());           // safe copy
-                int score = minimaxAlphaBeta(child, false, alpha, beta, startTime, timeLimitMs, ply + 1);
+                int score = minimaxAlphaBeta(child, false, alpha, beta, startTime, timeLimitMs, ply + 1, stateCounter);
                 best = Math.max(best, score);
                 alpha = Math.max(alpha, best);
                 if (alpha >= beta) break;                                // cut-off
             }
+            stateCounter.incrementAndGet();
             return best;
         } else { // minimizing player
             int best = Integer.MAX_VALUE;
             for (MovePair m : moves) {
                 Board child = UTILS.makeMove(m, board.copy());
-                int score = minimaxAlphaBeta(child, true, alpha, beta, startTime, timeLimitMs, ply + 1);
+                int score = minimaxAlphaBeta(child, true, alpha, beta, startTime, timeLimitMs, ply + 1, stateCounter);
                 best = Math.min(best, score);
                 beta = Math.min(beta, best);
                 if (beta <= alpha) break;
             }
+            stateCounter.incrementAndGet();
             return best;
         }
     }

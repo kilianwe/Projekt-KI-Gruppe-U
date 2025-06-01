@@ -47,8 +47,7 @@ public class Main {
         int numberOfTurns = 100;
         while (!(utils.checkplayerWon(board, Player.BLUE) && utils.checkplayerWon(board, Player.RED))) {
 
-            List<BitBoardUtils.MovePair> moves = utils.generateAllLegalMoves(board);
-            BitBoardUtils.MovePair chosenMove = utils.pickMove(moves, board);
+            BitBoardUtils.MovePair chosenMove = utils.pickMove(board);
             board = utils.makeMove(chosenMove, board);
             board.printBoard();
 

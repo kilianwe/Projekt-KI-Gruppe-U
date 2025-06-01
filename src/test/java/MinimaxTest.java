@@ -7,11 +7,11 @@ public class MinimaxTest {
 
     @Test
     void minimaxTest(){
-        Board board = new Board("3r13/2b12r21/b16/2RG1b22/b16/2b22BG1/3r23 r");
+        Board board = new Board("7/6r3/1RG5/3b43/1r25/7/2BG3r1 r");
         BitBoardUtils utils = new BitBoardUtils();
         AtomicInteger stateCounter = new AtomicInteger();
         long start = System.currentTimeMillis();
-        System.out.println(BitBoardUtils.minimax(board,false, 3, stateCounter));
+        System.out.println(BitBoardUtils.minimax(board,6, false, stateCounter));
         long duration = System.currentTimeMillis() - start;
         System.out.println("Minimax beendet:");
         System.out.println("Dauer: " + duration + " ms");
@@ -20,10 +20,20 @@ public class MinimaxTest {
 
     @Test
     void minimaxAlphaBetaTest(){
-        Board board = new Board("3RG3/7/7/7/4b11b1/4r4r11/3BG1b11 b");
+        Board board = new Board("7/6r3/1RG5/3b43/1r25/7/2BG3r1 r19");
         BitBoardUtils utils = new BitBoardUtils();
 
-        System.out.println(utils.minimaxAlphaBeta(board,false, Integer.MIN_VALUE, Integer.MAX_VALUE, System.currentTimeMillis(), 1000));
+        System.out.println(utils.pickMove(board).toMove().toAlgebraic());
+    }
+
+    @Test
+    void benchmarkEvaluate(){
+        Board board = new Board("b36/3b12r3/7/7/1r2RG4/2BG4/6r1 b");
+        long start = System.currentTimeMillis();
+        for(int i = 0; i < 10000; i++){
+            BitBoardUtils.evaluate(board);
+        }
+        System.out.println("Dauer: " + (System.currentTimeMillis() - start));
     }
 
 }

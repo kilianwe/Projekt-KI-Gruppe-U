@@ -5,7 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc5f93d3-b357-43e1-b50f-07f7a9d0d7f9" name="Changes" comment="made the minimax method more compute efficient">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BitBoardUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BitBoardUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/MinimaxTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/MinimaxTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BitBoardUtils$MovePair.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BitBoardUtils$MovePair.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BitBoardUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BitBoardUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Client$GameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Client$GameState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/MinimaxTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/MinimaxTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +104,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Client">
+  <component name="RunManager" selected="JUnit.MinimaxTest.benchmarkEvaluate">
     <configuration name="Client" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Client" />
       <module name="Projekt-KI-Gruppe-U" />
@@ -110,21 +121,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MakeMoveTest.makeMoveTestAddTowers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MinimaxTest.benchmarkEvaluate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Projekt-KI-Gruppe-U" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="MakeMoveTest" />
-      <option name="METHOD_NAME" value="makeMoveTestAddTowers" />
+      <option name="MAIN_CLASS_NAME" value="MinimaxTest" />
+      <option name="METHOD_NAME" value="benchmarkEvaluate" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MinimaxTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MinimaxTest.minimaxAlphaBetaTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Projekt-KI-Gruppe-U" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="MinimaxTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="METHOD_NAME" value="minimaxAlphaBetaTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -141,18 +153,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.Client" />
+      <item itemvalue="JUnit.MinimaxTest.benchmarkEvaluate" />
+      <item itemvalue="JUnit.MinimaxTest.minimaxAlphaBetaTest" />
       <item itemvalue="JUnit.BoardTest" />
-      <item itemvalue="JUnit.MinimaxTest" />
-      <item itemvalue="JUnit.MakeMoveTest.makeMoveTestAddTowers" />
       <item itemvalue="JUnit.MinimaxTest.minimaxTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MinimaxTest.benchmarkEvaluate" />
+        <item itemvalue="JUnit.MinimaxTest.minimaxAlphaBetaTest" />
+        <item itemvalue="JUnit.MinimaxTest.minimaxTest" />
         <item itemvalue="Application.Client" />
         <item itemvalue="JUnit.BoardTest" />
-        <item itemvalue="JUnit.MakeMoveTest.makeMoveTestAddTowers" />
-        <item itemvalue="JUnit.MinimaxTest" />
-        <item itemvalue="JUnit.MinimaxTest.minimaxTest" />
       </list>
     </recent_temporary>
   </component>
@@ -200,6 +212,8 @@
       <workItem from="1747751298014" duration="361000" />
       <workItem from="1747752008674" duration="1950000" />
       <workItem from="1747753986242" duration="616000" />
+      <workItem from="1748792294435" duration="231000" />
+      <workItem from="1748792630171" duration="16000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented basic classes">
       <option name="closed" value="true" />
